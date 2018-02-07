@@ -16,8 +16,7 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="../assets/css/demo.css" rel="stylesheet" />
     <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+    <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -41,18 +40,20 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li id="side2" >
-                        <a href="javascript:void(0)" onclick="changeclass(2)">
-                            <i class="material-icons">person</i>
-                            <p>User Profile</p>
-                        </a>
-                    </li>
                     <li id="side3" >
                         <a href="javascript:void(0)" onclick="changeclass(3);
                         document.getElementById('toptitle').innerHTML = 'Rooms';
                         $('#maincontent').load('show_buildings.php');">
                             <i class="material-icons">domain</i>
-                            <p>Room</p>
+                            <p>Rooms</p>
+                        </a>
+                    </li>
+                    <li id="side2" >
+                        <a href="javascript:void(0)" onclick="changeclass(2);
+                        document.getElementById('toptitle').innerHTML = 'Faculty';
+                        $('#maincontent').load('show_faculty.php');">
+                            <i class="material-icons">supervisor_account</i>
+                            <p>Faculty</p>
                         </a>
                     </li>
                     <li>
