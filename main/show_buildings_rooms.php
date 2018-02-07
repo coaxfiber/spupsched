@@ -122,7 +122,6 @@ error_reporting(E_ALL);
                                                    data: $("#addroom").serialize(), // serializes the form's elements.
                                                    success: function(data)
                                                    {   
-                                                    alert(data);
                                                       y = data.replace(/(^\s+|\s+$)/g, "")
                                                       $('#rooms').load(y);
                                                    }
