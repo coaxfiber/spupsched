@@ -29,7 +29,7 @@
     -->
             <div class="logo">
                 <a href="./" class="simple-text">
-                    Scheduling
+                    GS Scheduling
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -50,6 +50,14 @@
                     </li>
                     <li id="side2" >
                         <a href="javascript:void(0)" onclick="changeclass(2);
+                        document.getElementById('toptitle').innerHTML = 'Faculty';
+                        $('#maincontent').load('show_faculty.php');">
+                            <i class="material-icons">supervisor_account</i>
+                            <p>Faculty</p>
+                        </a>
+                    </li>
+                    <li id="side4" >
+                        <a href="javascript:void(0)" onclick="changeclass(4);
                         document.getElementById('toptitle').innerHTML = 'Faculty';
                         $('#maincontent').load('show_faculty.php');">
                             <i class="material-icons">supervisor_account</i>
