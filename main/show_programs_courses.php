@@ -28,7 +28,7 @@ error_reporting(E_ALL);
                 <?php
                     if ($_GET['q']!=0) {
                       # code...
-                    $stmt = $room->read(0);
+                    $stmt = $room->readins(0);
                      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($row);
                     ?>
@@ -50,7 +50,7 @@ error_reporting(E_ALL);
                     <?php
                       }
                     }
-                    $stmt = $room->read($_GET['q']);
+                    $stmt = $room->read($_GET['q'],$_GET['g']);
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($row);
                 ?>
@@ -78,7 +78,7 @@ error_reporting(E_ALL);
                                  
                                                       <?php 
                                                       if ($_GET['q']==0) {
-                                                       echo "<option value='Institutional Course'>Institutional Course</option>";
+                                                       echo "<option value='Institutional Courses'>Institutional Courses</option>";
                                                       }else{
                                                           include('type_courses.php');
                                                       }
@@ -156,7 +156,7 @@ error_reporting(E_ALL);
                                                     <label class="control-label">Title</label>
                                                     <Textarea type="text" class="form-control" name="title" required="required"></Textarea>
                                                 </div></td>
-                                                <td  width="40"  >
+                                                <td  width="60"  >
                                                     <div class="form-group label-floating" style="margin-top: 0">
                                                     <label class="control-label">Units</label>
                                                     <input type="number" class="form-control" name="units" required="required">
@@ -173,7 +173,7 @@ error_reporting(E_ALL);
                                                       <option value=""></option>      
                                                       <?php 
                                                       if ($_GET['q']==0) {
-                                                       echo "<option value='Institutional Course'>Institutional Course</option>";
+                                                       echo "<option value='Institutional Courses'>Institutional Courses</option>";
                                                       }else{
                                                           include('type_courses.php');
                                                       }

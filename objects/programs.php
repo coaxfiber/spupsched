@@ -30,6 +30,18 @@ class Programs{
  
         return $stmt;
     }
+    function getprog($car){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name . " WHERE id = '".$car."'";  
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
+    }
  // used by select drop-down list
     function reads(){
         //select all data

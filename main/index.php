@@ -24,7 +24,7 @@
     </style>
 </head>
 
-<body>
+<body onload="gload()">
     <div class="wrapper">
         <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
             <!--
@@ -40,7 +40,9 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="active" id="side1" >
-                        <a href="javascript:void(0)" onclick="changeclass(1)">
+                        <a href="javascript:void(0)" onclick="changeclass(1);
+                        document.getElementById('toptitle').innerHTML = 'Dashboard';
+                        $('#maincontent').load('show_dashboard.php');">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
@@ -102,8 +104,10 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">dashboard</i>
+                                <a href="javascript:void(0)" onclick="changeclass(5);
+                                    document.getElementById('toptitle').innerHTML = 'Settings';
+                                    $('#maincontent').load('show_settings.php');" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">settings</i>
                                     <p class="hidden-lg hidden-md">Dashboard</p>
                                 </a>
                             </li>
@@ -138,15 +142,8 @@
                                 </a>
                             </li>
                         </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group  is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
+                        <form class="navbar-form navbar-right" role="search" style="padding-top: 10px">
+                            <b id="settingsys"><?php //include('include_schoolyear_semester.php'); ?></b>
                         </form>
                     </div>
                 </div>
@@ -193,6 +190,11 @@
     </div>
 </body>
 <script type="text/javascript">
+    function gload() {
+        $('#settingsys').load('include_schoolyear_semester.php');
+        $('#maincontent').load('show_dashboard.php');
+        // body...
+    }
     function changeclass(car){
        clearside();
         if (car==1) {

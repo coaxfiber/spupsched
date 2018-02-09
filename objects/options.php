@@ -3,7 +3,7 @@ class Options{
  
     // database connection and table name
     private $conn;
-    private $table_name = "gs_options";
+    private $table_name = "gs_option";
  
     // object properties
     public $id;
@@ -22,7 +22,18 @@ class Options{
             $query = "SELECT
                          *
                      FROM
-                    " . $this->table_name;  
+                    " . $this->table_name . " WHERE gsoption like 'active_year'";  
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+        return $stmt;
+    }// used by select drop-down list
+     function readsemester(){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name . " WHERE gsoption like 'active_term'";  
 
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();

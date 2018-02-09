@@ -60,7 +60,7 @@
                                                 </td>
                                                 <td class="text-a">
                                                     <div class="bldgaction">
-                                                        <a href="javascript:void(0);" onclick="changeroom(<?php echo $id; ?>,'<?php echo $program." (".$specialization.")"; ?>')"><i class="material-icons">domain</i> Select&nbsp;</a> | 
+                                                        <a href="javascript:void(0);" onclick="changeroom(<?php echo $id; ?>,'<?php echo $program." (".$specialization.")"; ?>','<?php echo $short; ?>')"><i class="material-icons">domain</i> Select&nbsp;</a> | 
                                                         <a href="javascript:void(0);" onclick="upshow<?php echo $id; ?>()" ><i class="material-icons">edit</i> Update&nbsp;</a> | 
                                                         <a href="javascript:void(0);" onclick="deletebldg(<?php echo $id; ?>,9)"><i class="material-icons">delete</i> Remove</a>
                                                     </div>
@@ -138,7 +138,9 @@
                                 <div class="card-header" data-background-color="purple">
                                     <h4 class="title" id="roomtitle">Select a Program</h4>
                                     <p class="category" style="width: 60%;float: left;">Programs that are offered in the Graduate School.</p>
-                                    <div style="text-align: right;"><a href="javascript:void(0);" onclick="changeroom(0,'the Institution')" ><i class="material-icons">assignment</i>&nbsp;Go to Institutional Courses&nbsp;</a> | <a href="javascript:void(0);" onclick="print()" ><i class="material-icons">print</i>&nbsp;Print&nbsp;</a>
+                                    <input type="hidden" id="print1" value="none">
+                                    <input type="hidden" id="print2" value="none">
+                                    <div style="text-align: right;"><a href="javascript:void(0);" onclick="changeroom(0,'the Institution','none')" ><i class="material-icons">assignment</i>&nbsp;Go to Institutional Courses&nbsp;</a> | <a href="javascript:void(0);" onclick="pdfprint()" ><i class="material-icons">print</i>&nbsp;Print&nbsp;</a>
                                       </div>
                                 </div>
 
@@ -154,9 +156,22 @@
                         </div>
                     </div>
                     <script type="text/javascript">
-                        function changeroom(var2,var1){
+                        function changeroom(var2,var1,var3){
                             document.getElementById('roomtitle').innerHTML = 'Courses in <b>'+var1+'</b>';
-                            $('#rooms').load('show_programs_courses.php?q='+var2);
+                            $('#rooms').load('show_programs_courses.php?q='+var2+"&g="+var3);
+                            document.getElementById('print1').value=var2;
+                            document.getElementById('print2').value=var3;
+                        }
+
+                        function pdfprint(){
+                          if (document.getElementById('print1').value!='none' && document.getElementById('print1').value!='0') {
+                            var url = "curriculum.php?q="+document.getElementById('print1').value+"&g="+document.getElementById('print2').value;
+                                var win = window.open(url, '_blank');
+                                win.focus();
+                          }
+                          else{
+                            alert('No selected Program!')
+                          }
                         }
 
                         function deletebldg(id2,module2){

@@ -21,12 +21,60 @@ class Subjects{
     }
  
     // used by select drop-down list
-    function read($var){
+    function read($var,$var2){
+       if ($var == 0) {
+           $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." where program = ".$var;  
+       }else{
+            $query = "SELECT DISTINCT
+                         gs_subject.id,gs_subject.title,gs_subject.units,gs_subject.remarks,gs_subject.type,gs_subject.code
+                     FROM
+                    " . $this->table_name ." Inner join gs_program on ".$this->table_name.".program = gs_program.id  where (short like '".$var2."' and  type like 'Core Courses') or (".$this->table_name.".program = ".$var." and type != 'Core Courses')";  
+       }
+        //select all data
+            
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
+    } function readins($var){
        
             $query = "SELECT
                          *
                      FROM
                     " . $this->table_name ." where program = ".$var;  
+        //select all data
+            
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
+    }
+     // used by select drop-down list
+    function getsub($var,$txt){
+       
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." where program = ".$var.        " and type like '".$txt."'";  
+        //select all data
+            
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
+    }  // used by select drop-down list
+    function getsubc($var,$txt){
+       
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." Inner join gs_program on ".$this->table_name.".program = gs_program.id  where short like '".$var."' and type like '".$txt."' ";  
         //select all data
             
 
