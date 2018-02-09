@@ -32,7 +32,7 @@ error_reporting(E_ALL);
                      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($row);
                     ?>
-                    <tr>
+                    <tr  class="hov">
                     <td><a href="javascript:void(0);" id="vals<?php echo $id; ?>"><?php echo $code; ?></a>
                         </td>
                         <td><a href="javascript:void(0);" id="val2s<?php echo $id; ?>"><?php echo $title; ?></a>

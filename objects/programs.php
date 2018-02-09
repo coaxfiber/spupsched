@@ -30,6 +30,19 @@ class Programs{
  
         return $stmt;
     }
+ // used by select drop-down list
+    function reads(){
+        //select all data
+            $query = "SELECT DISTINCT
+                         short 
+                     FROM
+                    " . $this->table_name;  
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
+    }
 
 // update the product
 function update(){

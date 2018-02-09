@@ -17,6 +17,11 @@
     <link href="../assets/css/demo.css" rel="stylesheet" />
     <!--     Fonts and icons     -->
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+        tr.hov:hover{
+                background-color:#ededed;
+            }
+    </style>
 </head>
 
 <body>
@@ -64,36 +69,15 @@
                             <p>Program/Course</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="./table.html">
-                            <i class="material-icons">content_paste</i>
-                            <p>Table List</p>
+                    <li id="side5" >
+                        <a href="javascript:void(0)" onclick="changeclass(5);
+                        document.getElementById('toptitle').innerHTML = 'Settings';
+                        $('#maincontent').load('show_settings.php');">
+                            <i class="material-icons">settings</i>
+                            <p>Settings</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="./typography.html">
-                            <i class="material-icons">library_books</i>
-                            <p>Typography</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./icons.html">
-                            <i class="material-icons">bubble_chart</i>
-                            <p>Icons</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./maps.html">
-                            <i class="material-icons">location_on</i>
-                            <p>Maps</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./notifications.html">
-                            <i class="material-icons text-gray">notifications</i>
-                            <p>Notifications</p>
-                        </a>
-                    </li>
+                    
                     <li class="active-pro">
                         <a href="upgrade.html">
                             <i class="material-icons">unarchive</i>
@@ -219,6 +203,8 @@
            $("#side3").attr('class', 'active');
         }if (car==4) {
            $("#side4").attr('class', 'active');
+        }if (car==5) {
+           $("#side5").attr('class', 'active');
         }
     }
     function clearside(){
@@ -226,6 +212,7 @@
         $("#side2").attr('class', '');
         $("#side3").attr('class', '');
         $("#side4").attr('class', '');
+        $("#side5").attr('class', '');
     }
 </script>
 <!--   Core JS Files   -->

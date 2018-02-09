@@ -7,6 +7,7 @@ error_reporting(E_ALL);
     include_once('../objects/rooms.php');
     include_once('../objects/programs.php');
     include_once('../objects/subjects.php');
+    include_once('../objects/faculty.php');
     $database = new Database(); 
     $db = $database->getConnection();
 
@@ -124,39 +125,35 @@ error_reporting(E_ALL);
                 echo "show_programs_courses.php?q=".$_POST['program'];
                 exit();
             }elseif ($_POST['module']==13) {
-                $log = new Incharge($db);
-
-                $log->username = $_SESSION['code'];
-                $log->password = md5(md5($_POST['cpassword']));
-                $stmt2 = $log->read();
-                $num = $stmt2->rowCount();
-                $row2 = $stmt2->fetch();
-                if ($num>0&&$_POST['rpassword']==$_POST['npassword']) {
-                extract($row2);
-                $log ->cpw(md5(md5($_POST['npassword'])),$_SESSION['id']);
-                echo "Password Changed!";
-                }else{
-                echo "Change password failed! either new password and repeat password din not match or old password is incorrect.";
-                }
-                
+                $faculty = new Faculty($db);
+                $faculty->idno=$_POST['idno'];
+                $faculty->ext=$_POST['ext'];
+                $faculty->fname=$_POST['fname'];
+                $faculty->mname=$_POST['mname'];
+                $faculty->lname=$_POST['lname'];
+                $faculty->status=$_POST['status'];
+                $faculty->progname=$_POST['progname'];
+                $faculty->create();
+                echo "show_faculty.php";
                 exit();
             }elseif ($_POST['module']==14) {
-                $upd = new Incharge($db);
-                $upd ->username = $_POST['username'];
-                $upd ->email = $_POST['email'];
-                $upd ->name = $_POST['name'];
-                $upd ->facebooklink = $_POST['facebooklink'];
-                $upd ->googlelink = $_POST['googlelink'];
-                $upd ->twitterlink = $_POST['twitterlink'];
-                $upd ->id = $_SESSION['id'];
-                $upd ->update();
-                echo "user.php";
+                $faculty = new Faculty($db);
+                $faculty->id=$_POST['id'];
+                $faculty ->remove();
+                echo "show_faculty.php";
                 exit();
             }elseif ($_POST['module']==15) {
-                $task = new Tvtasks($db);
-                $task->id=$_POST['id'];
-                $task->status=$_POST['ck'];
-                $task ->updatestat();
+                $faculty = new Faculty($db);
+                $faculty->id=$_POST['id'];
+                $faculty->idno=$_POST['idno'];
+                $faculty->ext=$_POST['ext'];
+                $faculty->fname=$_POST['fname'];
+                $faculty->mname=$_POST['mname'];
+                $faculty->lname=$_POST['lname'];
+                $faculty->status=$_POST['status'];
+                $faculty->progname=$_POST['progname'];
+                $faculty->update();
+                echo "show_faculty.php";
                 exit();
             }elseif ($_POST['module']==16) {
                 $task = new Tvtasks($db);

@@ -39,7 +39,7 @@
                                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                                                 extract($row);
                                             ?>
-                                            <tr>
+                                            <tr  class="hov">
                                                 <td><a href="javascript:void(0);" id="up<?php echo $id; ?>"><?php echo $short; ?></a>
                                                     <div class="form-group label-floating" style="margin-top: 0" id="inputdiv<?php echo $id;?>">
                                                         <input type="text" class="form-control" name="upbldg" id="inputup<?php echo $id;?>" value="<?php echo $short; ?>">
