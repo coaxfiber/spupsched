@@ -42,10 +42,10 @@
                     </li>
                     <li id="side3" >
                         <a href="javascript:void(0)" onclick="changeclass(3);
-                        document.getElementById('toptitle').innerHTML = 'Rooms';
+                        document.getElementById('toptitle').innerHTML = 'Buildings/Rooms';
                         $('#maincontent').load('show_buildings.php');">
                             <i class="material-icons">domain</i>
-                            <p>Rooms</p>
+                            <p>Buildings/Rooms</p>
                         </a>
                     </li>
                     <li id="side2" >
@@ -58,10 +58,10 @@
                     </li>
                     <li id="side4" >
                         <a href="javascript:void(0)" onclick="changeclass(4);
-                        document.getElementById('toptitle').innerHTML = 'Faculty';
-                        $('#maincontent').load('show_faculty.php');">
-                            <i class="material-icons">supervisor_account</i>
-                            <p>Faculty</p>
+                        document.getElementById('toptitle').innerHTML = 'Program/Course';
+                        $('#maincontent').load('show_programs.php');">
+                            <i class="material-icons">assignment</i>
+                            <p>Program/Course</p>
                         </a>
                     </li>
                     <li>
@@ -217,12 +217,15 @@
            $("#side2").attr('class', 'active');
         }if (car==3) {
            $("#side3").attr('class', 'active');
+        }if (car==4) {
+           $("#side4").attr('class', 'active');
         }
     }
     function clearside(){
         $("#side1").attr('class', '');
         $("#side2").attr('class', '');
         $("#side3").attr('class', '');
+        $("#side4").attr('class', '');
     }
 </script>
 <!--   Core JS Files   -->

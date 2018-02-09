@@ -40,7 +40,7 @@
                                             <tr>
                                                 <td><a href="javascript:void(0);" id="up<?php echo $id; ?>"><?php echo $bldg; ?></a>
                                                     <div class="form-group label-floating" style="margin-top: 0" id="inputup<?php echo $id;?>">
-                                                        <input type="text" class="form-control" name="upbldg" id="inputup2<?php echo $id;?>" value="<?php echo $bldg; ?>">
+                                                        <input type="text" class="form-control" name="upbldg" id="input2up<?php echo $id;?>" value="<?php echo $bldg; ?>">
                                                         <input type="hidden" name="module" value="1">
                                                     </div>
                                                 </td>
@@ -51,7 +51,7 @@
                                                         <a href="javascript:void(0);" onclick="deletebldg(<?php echo $id; ?>,2)"><i class="material-icons">delete</i> Remove</a>
                                                     </div>
                                                     <div id="bldgupdate<?php echo $id; ?>" style="display: none">
-                                                        <a href="javascript:void(0);" onclick="updatek(<?php echo $id; ?>,'inputup2<?php echo $id;?>',3)" ><i class="material-icons">edit</i>&nbsp;Save&nbsp;</a>&nbsp;|&nbsp;
+                                                        <a href="javascript:void(0);" onclick="updatek(<?php echo $id; ?>,'input2up<?php echo $id;?>',3)" ><i class="material-icons">edit</i>&nbsp;Save&nbsp;</a>&nbsp;|&nbsp;
                                                         <a href="javascript:void(0);" onclick="cancel<?php echo $id; ?>()" ><i class="material-icons">cancel</i>&nbsp;Cancel&nbsp;</a> 
                                                     </div>
                                                     <script type="text/javascript">
@@ -87,7 +87,7 @@
                                                         <input type="hidden" name="module" value="1">
                                                     </div></td>
                                                     <td class="text-a" >
-                                                    <button class="btn btn-primary btn-round" type="submit" style="margin-top: 0"><i class="material-icons">add</i> Add</button></td>
+                                                    <button class="btn btn-primary btn-round" type="submit" style="margin-top: 0"><i class="material-icons">add</i> Add Building</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>

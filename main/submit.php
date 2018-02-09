@@ -5,6 +5,8 @@ error_reporting(E_ALL);
     include_once('../config/database.php');
     include_once('../objects/buildings.php');
     include_once('../objects/rooms.php');
+    include_once('../objects/programs.php');
+    include_once('../objects/subjects.php');
     $database = new Database(); 
     $db = $database->getConnection();
 
@@ -69,68 +71,57 @@ error_reporting(E_ALL);
                 echo "show_buildings_rooms.php?q=".$_POST['bldg'];
                 exit();
             }elseif ($_POST['module']==7) {
-                $task = new Milestones($db);
-                $task ->remove($_POST['value']);
-                echo "projects.php?q=".$_POST['projid']."&g=".md5($_POST['projid'])."";
+                $prog = new Programs($db);
+                $prog->short=$_POST['short'];
+                $prog->program=$_POST['program'];
+                $prog->specialization=$_POST['specialization'];
+                $prog->create();
+                echo "show_programs.php";
                 exit();
+                   
             }elseif ($_POST['module']==8) {
-                    
-                $proin = new Proin($db);
-                $proin ->removeall($_POST['projid']);
-
-                $pro = new Projects($db);
-                $pro ->remove($_POST['projid']);
-
-                $tasks = new Milestones($db);
-                $tasks ->removeall($_POST['projid']);
-                echo "main.php";
+                $prog = new Programs($db);
+                $prog->short=$_POST['short'];
+                $prog->id=$_POST['id'];
+                $prog->program=$_POST['program'];
+                $prog->specialization=$_POST['specialization'];
+                $prog ->update();
+                echo "show_programs.php";
                 exit();
             }elseif ($_POST['module']==9) {
-                $proin = new Proin($db);
-                $proin ->remove($_POST['q'],$_POST['g']);
-                echo "main.php";
+                $prog = new Programs($db);
+                $prog->id=$_POST['id'];
+                $prog ->remove();
+                echo "show_programs.php";
                 exit();
             }elseif ($_POST['module']==10) {
-            
-            $proj = new Tasks($db);
-
-            $proj->title = $_POST['title'];
-            $proj->date_start = $_POST['startdate'];
-            $proj->date_end = $_POST['enddate'];
-            $proj->projectid= $_POST['projid'];
-            $proj->milestoneid= $_POST['milesid'];
-
-                if ($proj->create()) {
-                    echo "projects.php?q=".$_POST['projid']."&g=".md5($_POST['projid'])."";
-                    exit();
-                }else {
-                    
-                }
+                $course = new Subjects($db);
+                $course->code=$_POST['code'];
+                $course->title=$_POST['title'];
+                $course->units=$_POST['units'];
+                $course->remarks=$_POST['remarks'];
+                $course->type=$_POST['type'];
+                $course->program=$_POST['program'];
+                $course->create();
+                echo "show_programs_courses.php?q=".$_POST['program'];
+                exit();
             }elseif ($_POST['module']==11) {
-            $proj = new Tasks($db);
-
-                $proj->id = $_POST['id'];
-                $proj->title = $_POST['title'];
-                $proj->date_start = $_POST['startdate'];
-                $proj->date_end = $_POST['enddate'];
-
-                if (isset($_POST['status'])) {
-                    $proj->status=1;
-                }else
-                {
-                    $proj->status=0;
-                }
-
-                if ($proj->update()) {
-                    echo "projects.php?q=".$_POST['projid']."&g=".md5($_POST['projid'])."";
-                    exit();
-                }else {
-                    
-                }
+                $course = new Subjects($db);
+                $course->id=$_POST['id'];
+                $course ->remove();
+                echo "show_programs_courses.php?q=".$_POST['program'];
+                exit();
             }elseif ($_POST['module']==12) {
-                $task = new Tasks($db);
-                $task ->remove($_POST['value']);
-                echo "projects.php?q=".$_POST['projid']."&g=".md5($_POST['projid'])."";
+                $course = new Subjects($db);
+                $course->code=$_POST['code'];
+                $course->title=$_POST['title'];
+                $course->units=$_POST['units'];
+                $course->remarks=$_POST['remarks'];
+                $course->type=$_POST['type'];
+                $course->program=$_POST['program'];
+                $course->id=$_POST['id'];
+                $course->update();
+                echo "show_programs_courses.php?q=".$_POST['program'];
                 exit();
             }elseif ($_POST['module']==13) {
                 $log = new Incharge($db);

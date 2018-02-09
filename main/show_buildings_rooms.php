@@ -31,8 +31,8 @@ error_reporting(E_ALL);
                         <div class="form-group label-floating" style="margin-top: 0" id="roomdiv<?php echo $id;?>">
                             <input type="text" class="form-control" name="upbldg" id="roominput<?php echo $id;?>" value="<?php echo $room; ?>">
                         </div></td>
-                    <td><a href="javascript:void(0);" id="roomvals2<?php echo $id; ?>"><?php echo $type; ?></a>
-                        <div class="form-group label-floating" style="margin-top: 0" id="roomdiv2<?php echo $id;?>">
+                    <td><a href="javascript:void(0);" id="room2vals<?php echo $id; ?>"><?php echo $type; ?></a>
+                        <div class="form-group label-floating" style="margin-top: 0" id="room2div<?php echo $id;?>">
                         <SELECT  type="text" class="form-control" id="roomtype<?php echo $id;?>">
                             <option value="<?php echo $type; ?>"><?php echo $type; ?></option>
                             <?php 
@@ -55,23 +55,23 @@ error_reporting(E_ALL);
                         </div>
                         <script type="text/javascript">
                             $('#roomdiv<?php echo $id; ?>').hide();
-                            $('#roomdiv2<?php echo $id; ?>').hide();
+                            $('#room2div<?php echo $id; ?>').hide();
                             function roomshow<?php echo $id; ?>(){
                                document.getElementById("roomupdate<?php echo $id; ?>").setAttribute("style", "display:inline");
                                $('.bldgaction2').hide();
                                 $('#roomdiv<?php echo $id; ?>').show();
-                                $('#roomdiv2<?php echo $id; ?>').show();
+                                $('#room2div<?php echo $id; ?>').show();
                                 $('#roomvals<?php echo $id; ?>').hide();
-                                $('#roomvals2<?php echo $id; ?>').hide();
+                                $('#room2vals<?php echo $id; ?>').hide();
 
                             }
                              function cancelroom<?php echo $id; ?>(){
                                document.getElementById("roomupdate<?php echo $id; ?>").setAttribute("style", "display:none");
                                $('.bldgaction2').show();
                                 $('#roomdiv<?php echo $id; ?>').hide();
-                                $('#roomdiv2<?php echo $id; ?>').hide();
+                                $('#room2div<?php echo $id; ?>').hide();
                                 $('#roomvals<?php echo $id; ?>').show();
-                                $('#roomvals2<?php echo $id; ?>').show();
+                                $('#room2vals<?php echo $id; ?>').show();
                             }
                         </script>
                     </td>
@@ -104,7 +104,7 @@ error_reporting(E_ALL);
                                                     </SELECT>
                                                 </div></td>
                                                 <td class="text-a" >
-                                                <button  type="submit" class="btn btn-primary btn-round"  style="margin-top: 0"><i class="material-icons">add</i> Add</button></td>
+                                                <button  type="submit" class="btn btn-primary btn-round"  style="margin-top: 0"><i class="material-icons">add</i> Add Room</button></td>
                                             </tr>
                                             </tbody>
                                         </table>
