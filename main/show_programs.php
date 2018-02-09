@@ -166,7 +166,7 @@
                         function pdfprint(){
                           if (document.getElementById('print1').value!='none' && document.getElementById('print1').value!='0') {
                             var url = "curriculum.php?q="+document.getElementById('print1').value+"&g="+document.getElementById('print2').value;
-                                var win = window.open(url, '_blank');
+                                var win = window.open(url);
                                 win.focus();
                           }
                           else{

@@ -41,10 +41,10 @@
                 <ul class="nav">
                     <li class="active" id="side1" >
                         <a href="javascript:void(0)" onclick="changeclass(1);
-                        document.getElementById('toptitle').innerHTML = 'Dashboard';
+                        document.getElementById('toptitle').innerHTML = 'Scheduling';
                         $('#maincontent').load('show_dashboard.php');">
                             <i class="material-icons">dashboard</i>
-                            <p>Dashboard</p>
+                            <p>Scheduling</p>
                         </a>
                     </li>
                     <li id="side3" >
