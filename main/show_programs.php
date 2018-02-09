@@ -137,8 +137,11 @@
                             <div class="card">
                                 <div class="card-header" data-background-color="purple">
                                     <h4 class="title" id="roomtitle">Select a Program</h4>
-                                    <p class="category">Programs that are offered in the Graduate School.</p>
+                                    <p class="category" style="width: 60%;float: left;">Programs that are offered in the Graduate School.</p>
+                                    <div style="text-align: right;"><a href="javascript:void(0);" onclick="changeroom(0,'the Institution')" ><i class="material-icons">assignment</i>&nbsp;Go to Institutional Courses&nbsp;</a> | <a href="javascript:void(0);" onclick="print()" ><i class="material-icons">print</i>&nbsp;Print&nbsp;</a>
+                                      </div>
                                 </div>
+
                                 <div id="rooms">
                                     <div class="card-content table-responsive">
                                        <div   style="height: 100px; overflow-y: scroll;">

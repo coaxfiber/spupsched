@@ -8,7 +8,7 @@ error_reporting(E_ALL);
         $database = new Database();
         $db = $database->getConnection();
         $room= new Subjects($db);
-        $stmt = $room->read($_GET['q']);
+        
 
 ?>
 
@@ -26,6 +26,31 @@ error_reporting(E_ALL);
             </thead>
             <tbody>
                 <?php
+                    if ($_GET['q']!=0) {
+                      # code...
+                    $stmt = $room->read(0);
+                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    extract($row);
+                    ?>
+                    <tr>
+                    <td><a href="javascript:void(0);" id="vals<?php echo $id; ?>"><?php echo $code; ?></a>
+                        </td>
+                        <td><a href="javascript:void(0);" id="val2s<?php echo $id; ?>"><?php echo $title; ?></a>
+                        </td>
+                    <td><a href="javascript:void(0);" id="val3s<?php echo $id; ?>"><?php echo $units; ?></a>
+                        </td>
+                        <td><a href="javascript:void(0);" id="val4s<?php echo $id; ?>"><?php echo $remarks; ?></a>
+                        </td>
+                    <td><a href="javascript:void(0);" id="val5s<?php echo $id; ?>"><?php echo $type; ?></a>
+                        </td>
+                    <td class="text-a" >
+                        <p>-Not Available-</p>
+                    </td>
+                </tr>
+                    <?php
+                      }
+                    }
+                    $stmt = $room->read($_GET['q']);
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($row);
                 ?>
@@ -50,9 +75,14 @@ error_reporting(E_ALL);
                         <div class="form-group label-floating" style="margin-top: 0" id="input5div<?php echo $id;?>">
                         <SELECT  type="text" class="form-control" id="input5x<?php echo $id;?>">
                             <option value="<?php echo $type; ?>"><?php echo $type; ?></option>
-                            <?php 
-                                include_once 'type_courses.php';
-                             ?>
+                                 
+                                                      <?php 
+                                                      if ($_GET['q']==0) {
+                                                       echo "<option value='Institutional Course'>Institutional Course</option>";
+                                                      }else{
+                                                          include('type_courses.php');
+                                                      }
+                                                       ?>
                         </SELECT>
                     </div></td>
                     <td class="text-a" >
@@ -142,7 +172,11 @@ error_reporting(E_ALL);
                                                     <SELECT  type="text" name="type" class="form-control" required="required"> 
                                                       <option value=""></option>      
                                                       <?php 
+                                                      if ($_GET['q']==0) {
+                                                       echo "<option value='Institutional Course'>Institutional Course</option>";
+                                                      }else{
                                                           include('type_courses.php');
+                                                      }
                                                        ?>
                                                     </SELECT>
                                                 </div></td>
@@ -162,7 +196,6 @@ error_reporting(E_ALL);
                                                    data: $("#addroom").serialize(), // serializes the form's elements.
                                                    success: function(data)
                                                    {   
-                                                    alert(data);
                                                       y = data.replace(/(^\s+|\s+$)/g, "")
                                                       $('#rooms').load(y);
                                                    }
@@ -198,7 +231,6 @@ error_reporting(E_ALL);
                                                      $.post('submit.php', { id,code:value1,title:value2,units:value3,remarks:value4,type:value5,module:mod,program:program
                                                                             })
                                               .done(function( data ) {
-                                                alert(data);
                                                y = data.replace(/(^\s+|\s+$)/g, "")
                                                $('#rooms').load(y);
                                              });
