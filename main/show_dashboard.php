@@ -24,7 +24,12 @@ session_start();
                 </div>
                 <div class="card-content">
                     <p class="category">Active Year/Semester</p>
-                    <h4 class="title"><?php echo $_SESSION['year']; ?> - <?php echo $_SESSION['sem']; ?>
+                    <h4 class="title"><?php
+                    if (isset($_SESSION['year'])) {
+                       echo $_SESSION['year']; ?> - <?php echo $_SESSION['sem'];
+                    }else
+                    echo "Refresh to Get the current School year and semester."
+                      ?>
                     </h4>
                 </div>
                 <div class="card-footer">
