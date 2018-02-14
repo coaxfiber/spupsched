@@ -27,6 +27,16 @@ class Options{
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();
         return $stmt;
+    }function readstart(){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name . " WHERE gsoption like 'active_start'";  
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+        return $stmt;
     }// used by select drop-down list
      function readsemester(){
         //select all data
@@ -53,40 +63,22 @@ class Options{
     }
 
 // update the product
-function update(){
+function updatestart(){
     // update query
     $query = "UPDATE 
                 " . $this->table_name . "
             SET 
-                idno = :idno,
-                ext = :ext,
-                fname = :fname,
-                mname = :mname,
-                lname = :lname,
-                status = :status,
-                progname = :progname
+                value = :value,
+                
             WHERE
-                id = :id";
+                gsoption = 'active_start'";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);
     // posted valuesF
-    $this->idno=htmlspecialchars(strip_tags($this->idno));
-    $this->ext=htmlspecialchars(strip_tags($this->ext));
-    $this->fname=htmlspecialchars(strip_tags($this->fname));
-    $this->mname=htmlspecialchars(strip_tags($this->mname));
-    $this->lname=htmlspecialchars(strip_tags($this->lname));
-    $this->status=htmlspecialchars(strip_tags($this->status));
-    $this->progname=htmlspecialchars(strip_tags($this->progname));
+    $this->value=htmlspecialchars(strip_tags($this->value));
     // bind new values
-    $stmt->bindParam(':idno', $this->idno);
-    $stmt->bindParam(':ext', $this->ext);
-    $stmt->bindParam(':fname', $this->fname);
-    $stmt->bindParam(':mname', $this->mname);
-    $stmt->bindParam(':lname', $this->lname);
-    $stmt->bindParam(':status', $this->status);
-    $stmt->bindParam(':progname', $this->progname);
-    $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':value', $this->value);
     // execute the query
     if($stmt->execute()){
         return true;

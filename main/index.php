@@ -42,7 +42,7 @@
                     <li class="active" id="side1" >
                         <a href="javascript:void(0)" onclick="changeclass(1);
                         document.getElementById('toptitle').innerHTML = 'Scheduling';
-                        $('#maincontent').load('show_dashboard.php');">
+                        $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_dashboard.php');">
                             <i class="material-icons">dashboard</i>
                             <p>Scheduling</p>
                         </a>
@@ -50,7 +50,7 @@
                     <li id="side3" >
                         <a href="javascript:void(0)" onclick="changeclass(3);
                         document.getElementById('toptitle').innerHTML = 'Buildings/Rooms';
-                        $('#maincontent').load('show_buildings.php');">
+                        $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_buildings.php');">
                             <i class="material-icons">domain</i>
                             <p>Buildings/Rooms</p>
                         </a>
@@ -58,7 +58,7 @@
                     <li id="side2" >
                         <a href="javascript:void(0)" onclick="changeclass(2);
                         document.getElementById('toptitle').innerHTML = 'Faculty';
-                        $('#maincontent').load('show_faculty.php');">
+                        $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_faculty.php');">
                             <i class="material-icons">supervisor_account</i>
                             <p>Faculty</p>
                         </a>
@@ -66,7 +66,7 @@
                     <li id="side4" >
                         <a href="javascript:void(0)" onclick="changeclass(4);
                         document.getElementById('toptitle').innerHTML = 'Program/Course';
-                        $('#maincontent').load('show_programs.php');">
+                        $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_programs.php');">
                             <i class="material-icons">assignment</i>
                             <p>Program/Course</p>
                         </a>
@@ -74,7 +74,7 @@
                     <li id="side5" >
                         <a href="javascript:void(0)" onclick="changeclass(5);
                         document.getElementById('toptitle').innerHTML = 'Settings';
-                        $('#maincontent').load('show_settings.php');">
+                        $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_settings.php');">
                             <i class="material-icons">settings</i>
                             <p>Settings</p>
                         </a>
@@ -99,7 +99,8 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#" id="toptitle"> Material Dashboard </a>
+                        <a class="navbar-brand" href="#" id="toptitle">Scheduling
+</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -222,7 +223,6 @@
 <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../assets/js/material.min.js" type="text/javascript"></script>
 <!--  Charts Plugin -->
-<script src="../assets/js/chartist.min.js"></script>
 <!--  Dynamic Elements plugin -->
 <script src="../assets/js/arrive.min.js"></script>
 <!--  PerfectScrollbar Library -->
@@ -230,11 +230,9 @@
 <!--  Notifications Plugin    -->
 <script src="../assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="../assets/js/material-dashboard.js?v=1.2.0"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
 

@@ -8,6 +8,7 @@ error_reporting(E_ALL);
     include_once('../objects/programs.php');
     include_once('../objects/subjects.php');
     include_once('../objects/faculty.php');
+    include_once('../objects/options.php');
     $database = new Database(); 
     $db = $database->getConnection();
 
@@ -156,11 +157,10 @@ error_reporting(E_ALL);
                 echo "show_faculty.php";
                 exit();
             }elseif ($_POST['module']==16) {
-                $task = new Tvtasks($db);
-                $task->id=$_POST['id'];
-                $task->task=$_POST['task'];
-                $task->deadline=$_POST['deadline'];
-                $task ->updaterec();
+                $opt = new Options($db);
+                $opt->value=$_POST['value'];
+                $opt ->updatestart();
+                echo "show_dashboard.php";
                 exit();
             }elseif ($_POST['module']==17) {
                 $task = new Tvtasks($db);
