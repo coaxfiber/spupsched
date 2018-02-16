@@ -29,9 +29,9 @@ class Subjects{
                     " . $this->table_name ." where program = ".$var;  
        }else{
             $query = "SELECT DISTINCT
-                         gs_subject.id,gs_subject.title,gs_subject.units,gs_subject.remarks,gs_subject.type,gs_subject.code
+                         gs_subject.id,gs_subject.title,gs_subject.units,gs_subject.remarks,gs_subject.type,gs_subject.code,gs_subject.program
                      FROM
-                    " . $this->table_name ." Inner join gs_program on ".$this->table_name.".program = gs_program.id  where (short like '".$var2."' and  type like 'Core Courses') or (".$this->table_name.".program = ".$var." and type != 'Core Courses')";  
+                    " . $this->table_name ." inner join gs_program on ".$this->table_name.".program = gs_program.id  where (short like '".$var2."' and  type like 'Core Courses') or (".$this->table_name.".program = ".$var." and type != 'Core Courses')";  
        }
         //select all data
             
@@ -40,7 +40,30 @@ class Subjects{
         $stmt->execute();
  
         return $stmt;
-    } function readins($var){
+    }
+
+
+    // used by select drop-down list
+    function readlist($var,$var2){
+       if ($var == 0) {
+           $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." where program = ".$var;  
+       }else{
+            $query = "SELECT DISTINCT
+                         gs_subject.id,gs_subject.title,gs_subject.units,gs_subject.remarks,gs_subject.type,gs_subject.code,gs_subject.program
+                     FROM
+                    " . $this->table_name ." left join gs_program on ".$this->table_name.".program = gs_program.id  where (gs_subject.program = 0) or (short like '".$var2."' and  type like 'Core Courses') or (".$this->table_name.".program = ".$var." and type != 'Core Courses')";  
+       }
+        //select all data
+            
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
+    }  function readins($var){
        
             $query = "SELECT
                          *
@@ -49,6 +72,18 @@ class Subjects{
         //select all data
             
 
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
+    }
+      function getcode($var){
+       
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." where code = '".$var."'";  
+        //select all data
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();
  

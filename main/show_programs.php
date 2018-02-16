@@ -60,7 +60,7 @@
                                                 </td>
                                                 <td class="text-a">
                                                     <div class="bldgaction">
-                                                        <a href="javascript:void(0);" onclick="changeroom(<?php echo $id; ?>,'<?php echo $program." (".$specialization.")"; ?>','<?php echo $short; ?>')"><i class="material-icons">domain</i> Select&nbsp;</a> | 
+                                                        <a href="javascript:void(0);" onclick="changeroom(<?php echo $id; ?>,'<?php echo $program; if($specialization!='') echo " (".$specialization.")"; ?>','<?php echo $short; ?>')"><i class="material-icons">domain</i> Select&nbsp;</a> | 
                                                         <a href="javascript:void(0);" onclick="upshow<?php echo $id; ?>()" ><i class="material-icons">edit</i> Update&nbsp;</a> | 
                                                         <a href="javascript:void(0);" onclick="deletebldg(<?php echo $id; ?>,9)"><i class="material-icons">delete</i> Remove</a>
                                                     </div>
@@ -119,7 +119,7 @@
                                                     <td>
                                                         <div class="form-group label-floating" style="margin-top: 0">
                                                         <label class="control-label">Specialization</label>
-                                                        <input type="text" class="form-control" name="specialization" required="required">
+                                                        <input type="text" class="form-control" name="specialization">
                                                         <input type="hidden" name="module" value="7">
                                                     </div></td>
 

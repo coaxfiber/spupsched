@@ -4,88 +4,221 @@
                       }
                   </style>
                   <?php
-                  ini_set('display_errors', 1);
+                    ini_set('display_errors', 1);
                       ini_set('display_startup_errors', 1);
                       error_reporting(E_ALL);
                               include_once '../config/database.php';
+                              include_once '../objects/schedule.php';
+                              include_once '../objects/options.php';
                               include_once '../objects/programs.php';
-                              include_once '../objects/rooms.php';
-                              
                               $database = new Database();
                               $db = $database->getConnection();
-                              $bldg= new Programs($db);
-                              $stmt = $bldg->read();
+                              $schedude= new Scheduling($db);
 
-                  ?>
+                              $arr= new Options($db);
+                              $stmt = $arr->readschoolyear();
+                              $row = $stmt->fetch();
+                              $year = $row['value'];
+                              $stmt = $arr->readsemester();
+                              $row = $stmt->fetch();
+                              $term = $row['value'];
+                              $stmt = $arr->readstart();
+                              $row = $stmt->fetch();
+                              $start = date("F j, Y", strtotime($row['value']));
+
+
+                              $schedude->term = $term;
+                              $schedude->year = $year;
+
+                              $prog= new Programs($db);
+                              if ($_GET['q']!=0) {
+                               $progstmt = $prog->readone($_GET['q']);
+                              }else
+                              $progstmt = $prog->read();    
+                 while ($row2 = $progstmt->fetch()){
+                 ?>
                   
                   <div class="card-content table-responsive">
-                  <div id="bldgdiv"  style="height: 300px; overflow-y: scroll;">
+                  <div id="bldgdiv">
+                    <table style="width: 100%">
+                      <tr>
+                        <td>
+                          <h3><?php echo $row2[1]; ?> - <?php echo $row2[2]; ?><?php if ($row2[3]=='') {
+                      # code...
+                    }else{echo " (".$row2[3].")";} ?></h3>
+                        </td>
+                        <td>
+                            <div style="text-align: right;float: right;margin-top: 17px">
+                              <a href="javascript:void(0);" onclick="pdfprint()"  data-toggle="modal" data-target="#of<?php echo $row2[0]; ?>"><i class="material-icons">print</i>&nbsp;Offered Courses&nbsp;</a>
+
+                            <!-- Modal -->
+                            <div id="of<?php echo $row2[0]; ?>" class="modal fade" role="dialog">
+                              <div class="modal-dialog" style="width: 70%">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="text-align: left">Courses Offered for <b><?php echo $row2[1]; ?> - <?php echo $row2[2]; ?><?php if ($row2[3]=='') {
+                                  }else{echo " (".$row2[3].")";} ?></b></h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div id="cf<?php echo $row2[0]; ?>" style="text-align: left;"></div>
+                                    <script type="text/javascript">
+                                      $('#cf<?php echo $row2[0]; ?>').load('include_prog.php?q=<?php echo $row2[0]; ?>&g=<?php echo $row2[1]; ?>&stat=<?php echo $_GET["q"] ?>');
+                                    </script>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                              </div>  
+                        </td>
+                      </tr>
+                    </table>
+                    
                       <table class="table" onload="bot();">
                           <thead class="text-primary" style="color: #32122e">
-                              <td >Acronym</td>
-                              <td >Program</td>
-                              <td >Specialization</td>
-                              <td class="text-a" >-Action-</td>
+                              <th ><b>Code</b></th>
+                              <th ><b>Course Title</b></th>
+                              <th ><b>Units</b></th>
+                              <th ><b>Schedule</b></th>
+                              <th ><b>Time</b></th>
+                              <th ><b>Room</b></th>
+                              <th ><b>Professor</b></th>
+                              <th class="text-a" ><b>-Action-</b></th>
                           </thead>
                           <tbody>
                               <?php
+                              $schedude->programid = $row2[0];
+                              $stmt = $schedude->read();
                                   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                                   extract($row);
                               ?>
                               <tr  class="hov">
-                                  <td><a href="javascript:void(0);" id="up<?php echo $id; ?>"><?php echo $short; ?></a>
-                                      <div class="form-group label-floating" style="margin-top: 0" id="inputdiv<?php echo $id;?>">
-                                          <input type="text" class="form-control" name="upbldg" id="inputup<?php echo $id;?>" value="<?php echo $short; ?>">
-                                          <input type="hidden" name="module" value="1">
-                                      </div>
+                                  <td><?php echo $code; ?>
                                   </td>
-                                  
-                                  <td><a href="javascript:void(0);" id="u2p<?php echo $id; ?>"><?php echo $program; ?></a>
-                                      <div class="form-group label-floating" style="margin-top: 0" id="input2div<?php echo $id;?>">
-                                          <input type="text" class="form-control" name="up2bldg" id="input2up<?php echo $id;?>" value="<?php echo $program; ?>">
-                                          <input type="hidden" name="module" value="1">
-                                      </div></td>
-                                      <td><a href="javascript:void(0);" id="u3p<?php echo $id; ?>"><?php echo $specialization; ?></a>
-                                      <div class="form-group label-floating" style="margin-top: 0" id="input3div<?php echo $id;?>">
-                                          <input type="text" class="form-control" name="upbldg" id="input3up<?php echo $id;?>" value="<?php echo $specialization; ?>">
-                                          <input type="hidden" name="module" value="1">
-                                      </div>
+                                  <td><?php echo $title; ?>
+                                  </td>
+                                  <td><?php echo $units; ?>
+                                  </td>
+                                  <td><?php echo $sched; ?>
+                                  </td>
+                                  <td><?php echo $time; ?>
+                                  </td>
+                                  <td><?php echo $room; ?>
+                                  </td>
+                                  <td><?php echo $professor; ?>
                                   </td>
                                   <td class="text-a">
-                                      <div class="bldgaction">
-                                          <a href="javascript:void(0);" onclick="changeroom(<?php echo $id; ?>,'<?php echo $program." (".$specialization.")"; ?>','<?php echo $short; ?>')"><i class="material-icons">domain</i> Select&nbsp;</a> | 
-                                          <a href="javascript:void(0);" onclick="upshow<?php echo $id; ?>()" ><i class="material-icons">edit</i> Update&nbsp;</a> | 
-                                          <a href="javascript:void(0);" onclick="deletebldg(<?php echo $id; ?>,9)"><i class="material-icons">delete</i> Remove</a>
+                                      <div class="bldgaction"> 
+                                          <a href="javascript:void(0);"  data-toggle="modal" data-target="#as<?php echo $id; ?>"><i class="material-icons">edit</i> Assign Schedule&nbsp;</a>
+
+                                          <div id="as<?php echo $id; ?>" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+
+                                              <!-- Modal content-->
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                  <h4 class="modal-title" style="text-align: left"><b><?php echo $row2[1]; ?> <?php if ($row2[3]=='') {
+                                                }else{echo " (".$row2[3].")";} ?></b></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <table style="width: 100%">
+                                                    <tr>
+                                                      <th style="text-align: right">Code: &nbsp;&nbsp;&nbsp;</th>
+                                                      <th><?php echo $code; ?></th>
+                                                    </tr>
+                                                    <tr>
+                                                      <th style="text-align: right">Course Title: &nbsp;&nbsp;&nbsp;</th>
+                                                      <th><?php echo $title; ?></th>
+                                                    </tr>
+                                                    <tr>
+                                                      <th style="text-align: right">Units: &nbsp;&nbsp;&nbsp;</th>
+                                                      <th><?php echo $units;  ?></th>
+                                                    </tr>
+                                                    <tr>
+                                                      <th style="text-align: right">Subject schedule: &nbsp;&nbsp;&nbsp;</th>
+                                                      <th>
+                                                        <div class="form-group label-floating" style="margin-top: 0">
+                                                        <SELECT id="select" type="text" name="type" class="form-control" style="margin-top:0;">
+                                                        <?php 
+                                                        if ($sched == '') {
+                                                         echo '<option value="0">-Unassigned-</option>';
+                                                        }else
+                                                        if ($sched == 1){
+                                                          echo '<option value="1">First</option>';
+                                                        }else
+                                                        if ($sched ==2 ){
+                                                          echo '<option value="2">Second</option>';
+                                                        }else
+                                                        if ($sched ==3 ){
+                                                          echo '<option value="3">Third</option>';
+                                                        }
+                                                        
+                                                        echo $units;  ?>
+                                                        
+                                                        <option value="1">First</option>
+                                                        <option value="2">Second</option>
+                                                        <option value="3">Third</option>
+                                                    </SELECT>
+                                                  </div>
+                                                      </th>
+                                                    </tr>
+                                                    <tr>
+                                                      <th style="text-align: right">
+                                                        Time: &nbsp;&nbsp;&nbsp;
+                                                      </th>
+                                                      <th>
+                                                        <div class="form-group label-floating" style="margin-top: 0">
+                                                          <input type="text" class="form-control" name="upbldg" value="<?php echo $time;  ?>">
+                                                      </div>
+                                                      </th>
+                                                    </tr>
+                                                    <tr>
+                                                      <th style="text-align: right">
+                                                        Room: &nbsp;&nbsp;&nbsp;
+                                                      </th>
+                                                      <th>
+                                                        <table width="100%">
+                                                          <tr>
+                                                            <td width="50%"><div class="form-group label-floating" style="margin-top: 0;">
+                                                          <input type="text" class="form-control" name="upbldg" value="<?php echo $room;  ?>">
+                                                          </div></td>
+                                                          <td>
+                                                            <button>seek</button>
+                                                          </td>
+                                                          </tr>
+                                                        </table>
+                                                        
+                                                      </th>
+                                                    </tr>
+                                                    <tr>
+                                                      <th style="text-align: right">
+                                                        Professor: &nbsp;&nbsp;&nbsp;
+                                                      </th>
+                                                      <th>
+                                                        <table width="100%">
+                                                          <tr>
+                                                            <td width="50%"><div class="form-group label-floating" style="margin-top: 0;">
+                                                          <input type="text" class="form-control" name="upbldg" value="<?php echo $professor;  ?>">
+                                                          </div></td>
+                                                          <td>
+                                                            <button>seek</button>
+                                                          </td>
+                                                          </tr>
+                                                        </table>
+                                                        
+                                                      </th>
+                                                    </tr>
+                                                  </table>
+                                                </div>
+                                              </div>
+
+                                            </div>
+                                          </div>
                                       </div>
-                                      <div id="bldgupdate<?php echo $id; ?>" style="display: none">
-                                          <a href="javascript:void(0);" onclick="updatek(<?php echo $id; ?>,'inputup<?php echo $id;?>','input2up<?php echo $id;?>','input3up<?php echo $id;?>',8)" ><i class="material-icons">edit</i>&nbsp;Save&nbsp;</a>&nbsp;|&nbsp;
-                                          <a href="javascript:void(0);" onclick="cancel<?php echo $id; ?>()" ><i class="material-icons">cancel</i>&nbsp;Cancel&nbsp;</a> 
-                                      </div>
-                                      <script type="text/javascript">
-                                          $('#inputdiv<?php echo $id; ?>').hide();
-                                          $('#input2div<?php echo $id; ?>').hide();
-                                          $('#input3div<?php echo $id; ?>').hide();
-                                          function upshow<?php echo $id; ?>(){
-                                             document.getElementById("bldgupdate<?php echo $id; ?>").setAttribute("style", "display:inline");
-                                             $('.bldgaction').hide();
-                                             $('#up<?php echo $id; ?>').hide();
-                                             $('#u2p<?php echo $id; ?>').hide();
-                                             $('#u3p<?php echo $id; ?>').hide();
-                                          $('#inputdiv<?php echo $id; ?>').show();
-                                          $('#input2div<?php echo $id; ?>').show();
-                                          $('#input3div<?php echo $id; ?>').show();
-                                          }
-                                           function cancel<?php echo $id; ?>(){
-                                             document.getElementById("bldgupdate<?php echo $id; ?>").setAttribute("style", "display:none");
-                                             $('.bldgaction').show();
-                                             $('#up<?php echo $id; ?>').show();
-                                             $('#u2p<?php echo $id; ?>').show();
-                                             $('#u3p<?php echo $id; ?>').show();
-                                          $('#inputdiv<?php echo $id; ?>').hide();
-                                          $('#input2div<?php echo $id; ?>').hide();
-                                          $('#input3div<?php echo $id; ?>').hide();
-                                          }
-                                      </script>
                                   </td>
                               </tr>
                               <?php
@@ -94,35 +227,8 @@
                           </tbody>
                       </table>
                   </div>
-                      <form method="POST"  id="addbldg">
-                          <table class="table">
-                              <tbody>
-                                  <tr>
-                                      <td>
-                                          <div class="form-group label-floating" style="margin-top: 0">
-                                          <label class="control-label">Acronym</label>
-                                          <input type="text" class="form-control" name="short" required="required">
-                                      </div></td>
-                                      <td>
-                                          <div class="form-group label-floating" style="margin-top: 0">
-                                          <label class="control-label">Program</label>
-                                          <input type="text" class="form-control" name="program" required="required">
-                                          <input type="hidden" name="module" value="7">
-                                      </div></td>
-                                      <td>
-                                          <div class="form-group label-floating" style="margin-top: 0">
-                                          <label class="control-label">Specialization</label>
-                                          <input type="text" class="form-control" name="specialization" required="required">
-                                          <input type="hidden" name="module" value="7">
-                                      </div></td>
-
-                                      <td class="text-a" >
-                                      <button class="btn btn-primary btn-round" type="submit" style="margin-top: 0"><i class="material-icons">add</i> Add Program</button></td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </form>
                   </div>
+                  <?php } ?>
                    <!-- Trigger the modal with a button -->
 
               </div>
@@ -131,13 +237,7 @@
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
   });
-          function changeroom(var2,var1,var3){
-              document.getElementById('roomtitle').innerHTML = 'Courses in <b>'+var1+'</b>';
-              $('#rooms').load('show_programs_courses.php?q='+var2+"&g="+var3);
-              document.getElementById('print1').value=var2;
-              document.getElementById('print2').value=var3;
-          }
-
+        
           function pdfprint(){
             if (document.getElementById('print1').value!='none' && document.getElementById('print1').value!='0') {
               var url = "curriculum.php?q="+document.getElementById('print1').value+"&g="+document.getElementById('print2').value;
@@ -148,52 +248,5 @@
               alert('No selected Program!')
             }
           }
-
-          function deletebldg(id2,module2){
-            var txt;
-            var r = confirm("Are you sure you want to remove this Program? Note: all courses in this program will be removed.");
-            if (r == true) {
-                       $.post("submit.php", { id:id2,  module:module2
-                                              })
-                .done(function( data ) {
-                 y = data.replace(/(^\s+|\s+$)/g, "")
-                 $('#maincontent').load(y);
-               });
-                       
-            }
-            
-          }
-           $("#addbldg").submit(function(e) {
-              var url = "submit.php"; // the script where you handle the form input.
-              $.ajax({
-                     type: "POST",
-                     url: url,
-                     data: $("#addbldg").serialize(), // serializes the form's elements.
-                     success: function(data)
-                     {  
-                        y = data.replace(/(^\s+|\s+$)/g, "")
-                        $('#maincontent').load(y);
-                     }
-
-                   });
-              e.preventDefault(); // avoid to execute the actual submit of the form.
-          });
-
-          function updatek(id,short,program,spe,module2){
-                var txt;
-                var value = document.getElementById(short).value;
-                var value2 = document.getElementById(program).value;
-                var value3 = document.getElementById(spe).value;
-                //alert(value);
-                var r = confirm('Are you sure you want to update the Program?');
-                if (r == true) {
-                           $.post('submit.php', { id:id, short:value, program:value2,specialization:value3, module:module2
-                                                  })
-                    .done(function( data ) {
-                     y = data.replace(/(^\s+|\s+$)/g, "")
-                     $('#maincontent').load(y);
-                   });
-                           
-                }
-            }
+         
       </script>

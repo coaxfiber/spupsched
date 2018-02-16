@@ -54,7 +54,7 @@ error_reporting(E_ALL);
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($row);
                 ?>
-                <tr>
+                <tr class="hov">
                     <td><a href="javascript:void(0);" id="vals<?php echo $id; ?>"><?php echo $code; ?></a>
                         <div class="form-group label-floating" style="margin-top: 0" id="inputdiv<?php echo $id;?>">
                             <input type="text" class="form-control" name="upbldg" id="inputx<?php echo $id;?>" value="<?php echo $code; ?>">

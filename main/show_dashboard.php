@@ -54,9 +54,9 @@ session_start();
             $.post("submit.php", { value:txt,  module:module2
                 })
                 .done(function( data ) {
-                    alert(data);
                  y = data.replace(/(^\s+|\s+$)/g, "")
                  $('#maincontent').load(y);
+               $( ".modal-backdrop" ).remove();
                });
             
           }
@@ -108,24 +108,32 @@ session_start();
                 <div class="card-header" data-background-color="purple">
                     <div class="nav-tabs-navigation">
                         <div class="nav-tabs-wrapper">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td>
                             <span class="nav-tabs-title">Filter by:</span>
                             <ul class="nav nav-tabs" data-tabs="tabs">
                                 <li class="active">
                                     <div class="form-group label-floating" style="margin-top: 3px">
-                                                    <SELECT  type="text" name="type" class="form-control" style="color:white;background-color:#ab47bc;">
-                                                        <option value="all">-All-</option>
+                                                    <SELECT id="select" type="text" name="type" class="form-control" style="color:white;background-color:#ab47bc;">
+                                                        <option value="0">-All-</option>
                                                         <?php
                                                              $bldg= new Programs($db);
                                                             $stmt = $bldg->read();
                                                              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                                                             extract($row);
                                                         ?>
-                                                        <option value="<?php echo $short; ?>"><?php echo $short; ?> - <?php echo $program; ?> (<?php echo $specialization; ?>)</option>       
+                                                        <option value="<?php echo $id; ?>"><?php echo $short; ?> - <?php echo $program; ?><?php if($specialization!='') echo " (".$specialization.")"; ?></option>       
                                                         <?php } ?>
                                                     </SELECT>
                                                 </div>
                                 </li>
-                            </ul>
+                            </ul></td>
+                                    <td>
+                                    <div style="text-align: right;float: right"><a href="javascript:void(0);" onclick="pdfprint()" ><i class="material-icons">print</i>&nbsp;Print&nbsp;</a>
+                                      </div> </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -133,7 +141,12 @@ session_start();
                     <div id="tablesched"></div>
                 </div>
                 <script type="text/javascript">
-                    $('#tablesched').html('<center><img src=\'../assets/load.gif\' style=\'width:100px;\'></center>').load('show_scheduling.php');
+
+                    $('#tablesched').html('<center><img src=\'../assets/load.gif\' style=\'width:100px;\'></center>').load('show_scheduling.php?q=0');
+                   $('#select').on('change', function() {
+                     $('#tablesched').html('<center><img src=\'../assets/load.gif\' style=\'width:100px;\'></center>').load('show_scheduling.php?q='+this.value);
+                  })
+
                 </script>
             </div>
         </div>

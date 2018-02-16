@@ -23,7 +23,19 @@ class Programs{
             $query = "SELECT
                          *
                      FROM
-                    " . $this->table_name ;  
+                    " . $this->table_name ." Order by short";  
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
+    }
+    function readone($vars){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." where id = ".$vars;  
 
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();

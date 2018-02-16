@@ -27,6 +27,26 @@ class Options{
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();
         return $stmt;
+    }  function readdean(){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name . " WHERE gsoption like 'dean'";  
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+        return $stmt;
+    }  function readvp(){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name . " WHERE gsoption like 'vp'";  
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+        return $stmt;
     }function readstart(){
         //select all data
             $query = "SELECT
@@ -68,10 +88,106 @@ function updatestart(){
     $query = "UPDATE 
                 " . $this->table_name . "
             SET 
-                value = :value,
+                value = :value
                 
             WHERE
                 gsoption = 'active_start'";
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+    // posted valuesF
+    $this->value=htmlspecialchars(strip_tags($this->value));
+    // bind new values
+    $stmt->bindParam(':value', $this->value);
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
+// update the product
+function updateterm(){
+    // update query
+    $query = "UPDATE 
+                " . $this->table_name . "
+            SET 
+                value = :value
+                
+            WHERE
+                gsoption = 'active_term'";
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+    // posted valuesF
+    $this->value=htmlspecialchars(strip_tags($this->value));
+    // bind new values
+    $stmt->bindParam(':value', $this->value);
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
+// update the product
+function updateyear(){
+    // update query
+    $query = "UPDATE 
+                " . $this->table_name . "
+            SET 
+                value = :value
+                
+            WHERE
+                gsoption = 'active_year'";
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+    // posted valuesF
+    $this->value=htmlspecialchars(strip_tags($this->value));
+    // bind new values
+    $stmt->bindParam(':value', $this->value);
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
+// update the product
+function updatevp(){
+    // update query
+    $query = "UPDATE 
+                " . $this->table_name . "
+            SET 
+                value = :value
+                
+            WHERE
+                gsoption = 'vp'";
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+    // posted valuesF
+    $this->value=htmlspecialchars(strip_tags($this->value));
+    // bind new values
+    $stmt->bindParam(':value', $this->value);
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
+// update the product
+function updatedean(){
+    // update query
+    $query = "UPDATE 
+                " . $this->table_name . "
+            SET 
+                value = :value
+                
+            WHERE
+                gsoption = 'dean'";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);

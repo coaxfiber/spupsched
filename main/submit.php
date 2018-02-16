@@ -9,6 +9,7 @@ error_reporting(E_ALL);
     include_once('../objects/subjects.php');
     include_once('../objects/faculty.php');
     include_once('../objects/options.php');
+    include_once('../objects/schedule.php');
     $database = new Database(); 
     $db = $database->getConnection();
 
@@ -163,25 +164,40 @@ error_reporting(E_ALL);
                 echo "show_dashboard.php";
                 exit();
             }elseif ($_POST['module']==17) {
-                $task = new Tvtasks($db);
-                
-                $task ->remove(md5($_POST['id']));
+                $opt = new Options($db);
+                $opt->value=$_POST['year'];
+                $opt ->updateyear();
+                $opt->value=$_POST['term'];
+                $opt ->updateterm();
+                $opt->value=$_POST['vp'];
+                $opt ->updatevp();
+                $opt->value=$_POST['dean'];
+                $opt ->updatedean();
+                echo "show_settings.php";
                 exit();
             }elseif ($_POST['module']==18) {
-                if (isset($_POST['checkboxvar'])) {
+                $sched = new Scheduling($db);
+                $sched->year=$_POST['year'];
+                $sched->term=$_POST['term'];
+                $sched->programid=$_POST['programid'];
 
-                    $proin = new Tvtasks($db);
-
-                    $checkboxvar = $_POST['checkboxvar'];
-                    foreach ($checkboxvar as $hobys=>$value) {
-                           
-                            $proin ->task = $_POST['task'];
-                            $proin ->deadline = $_POST['deadline'];
-                            $proin ->inchargeid = $value;
-                            $proin ->create();
-                        }
+                $sched ->removeall();
+                if (isset($_POST['check'])) {
+                $coding = $_POST['check'];
+                       foreach ($coding as $hobys=>$value) {
+                                $course = new Subjects($db);
+                                $stmt=$course->getcode($value);
+                                $row = $stmt->fetch();
+                                $sched->code = $row[1];
+                                $sched->title = $row[2];
+                                $sched->units = $row[3];
+                                $sched->create(); 
+                            }
+                            
+                    # code...
                 }
-                echo "main.php";
+                echo "show_scheduling.php?q=".$_POST['stat'];
+                exit();
             }elseif ($_POST['module']==19) {
                 $upd = new Incharge($db);
                 $upd ->username = $_POST['username'];
