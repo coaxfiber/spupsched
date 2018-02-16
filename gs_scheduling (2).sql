@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2018 at 03:25 PM
+-- Generation Time: Feb 16, 2018 at 09:49 AM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -53,7 +53,7 @@ CREATE TABLE `gs_building` (
 --
 
 INSERT INTO `gs_building` (`id`, `bldg`) VALUES
-(9, 'asdasd'),
+(9, 'asdasdss'),
 (11, 'asd');
 
 -- --------------------------------------------------------
@@ -97,10 +97,11 @@ CREATE TABLE `gs_option` (
 --
 
 INSERT INTO `gs_option` (`id`, `gsoption`, `value`) VALUES
-(1, 'Dean', 'INICIA C. BANSIG, Ph.D.'),
+(1, 'dean', 'INICIA C. BANSIG, Ph.D.'),
 (2, 'vp', 'AGRIPINA MARIBBAY, Ph.D.'),
-(3, 'active_year', '2017-2018'),
-(4, 'active_term', 'Third Semester');
+(3, 'active_year', '2017 - 2018'),
+(4, 'active_term', 'Third Semester'),
+(5, 'active_start', '2018-01-10');
 
 -- --------------------------------------------------------
 
@@ -121,7 +122,8 @@ CREATE TABLE `gs_program` (
 
 INSERT INTO `gs_program` (`id`, `short`, `program`, `specialization`) VALUES
 (21, 'MIT', 'Master in Information Technology', 'System Development'),
-(22, 'MIT', 'Master in Information Technology', 'Information Management');
+(22, 'MIT', 'Master in Information Technology', 'Information Management'),
+(27, 'MLIS', 'Master in Library Information Science', '');
 
 -- --------------------------------------------------------
 
@@ -158,10 +160,11 @@ CREATE TABLE `gs_scheduling` (
   `title` varchar(250) NOT NULL,
   `units` tinyint(2) NOT NULL,
   `sched` varchar(50) NOT NULL,
+  `time` varchar(30) NOT NULL,
   `room` varchar(15) NOT NULL,
   `professor` varchar(150) NOT NULL,
-  `term` varchar(20) NOT NULL,
-  `year` varchar(9) NOT NULL,
+  `term` varchar(25) NOT NULL,
+  `year` varchar(20) NOT NULL,
   `programid` int(11) NOT NULL,
   `start` date NOT NULL,
   `position` tinyint(4) NOT NULL
@@ -171,8 +174,11 @@ CREATE TABLE `gs_scheduling` (
 -- Dumping data for table `gs_scheduling`
 --
 
-INSERT INTO `gs_scheduling` (`id`, `code`, `title`, `units`, `sched`, `room`, `professor`, `term`, `year`, `programid`, `start`, `position`) VALUES
-(1, 'mit', '123', 3, '123', '123', '1231', '12312', '231', 123, '2018-02-13', 0);
+INSERT INTO `gs_scheduling` (`id`, `code`, `title`, `units`, `sched`, `time`, `room`, `professor`, `term`, `year`, `programid`, `start`, `position`) VALUES
+(83, 'MIT 301', 'Advance Operating Systems and Networking', 3, '', '', '', '', 'Third Semester', '2017 - 2018', 22, '0000-00-00', 0),
+(84, 'MIT 301', 'Advance Operating Systems and Networking', 3, '', '8:30-12/1:30-5', '', '', 'Third Semester', '2017 - 2018', 21, '0000-00-00', 0),
+(85, 'MIT 302', 'Advance Database System', 3, '', '8:30-12/1:30-5', '', '', 'Third Semester', '2017 - 2018', 21, '0000-00-00', 0),
+(86, 'MIT 303', 'Advanced Systems Design and Implementation', 3, '', '8:30-12/1:30-5', '', '', 'Third Semester', '2017 - 2018', 21, '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -279,22 +285,22 @@ ALTER TABLE `gs_faculty`
 -- AUTO_INCREMENT for table `gs_option`
 --
 ALTER TABLE `gs_option`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `gs_program`
 --
 ALTER TABLE `gs_program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `gs_rooms`
 --
 ALTER TABLE `gs_rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `gs_scheduling`
 --
 ALTER TABLE `gs_scheduling`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 --
 -- AUTO_INCREMENT for table `gs_subject`
 --
