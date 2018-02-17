@@ -33,6 +33,19 @@ class Faculty{
         $stmt->execute();
  
         return $stmt;
+    }
+    // used by select drop-down list
+    function readprog($vars){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." Where progname like '".$vars."'";  
+
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+ 
+        return $stmt;
     }// used by select drop-down list
     function readsearch($car){
         //select all data

@@ -70,22 +70,35 @@ class Scheduling{
     }
 
 // update the product
-function update(){
+function updatesched(){
     // update query
     $query = "UPDATE 
                 " . $this->table_name . "
             SET 
-                bldg = :bldg
+                professor = :professor,
+                position = :position,
+                time = :time,
+                sched = :sched,
+                room = :room
             WHERE
                 id = :id";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);
     // posted valuesF
-    $this->bldg=htmlspecialchars(strip_tags($this->bldg));
+    $this->professor=htmlspecialchars(strip_tags($this->professor));
+    $this->time=htmlspecialchars(strip_tags($this->time));
+    $this->sched=htmlspecialchars(strip_tags($this->sched));
+    $this->room=htmlspecialchars(strip_tags($this->room));
+    $this->id=htmlspecialchars(strip_tags($this->id));
+    $this->position=htmlspecialchars(strip_tags($this->position));
     // bind new values
-    $stmt->bindParam(':bldg', $this->bldg);
+    $stmt->bindParam(':professor', $this->professor);
+    $stmt->bindParam(':time', $this->time);
+    $stmt->bindParam(':sched', $this->sched);
+    $stmt->bindParam(':room', $this->room);
     $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':position', $this->position);
     // execute the query
     if($stmt->execute()){
         return true;
@@ -94,6 +107,33 @@ function update(){
     }
 }
 function removeall(){
+ 
+    // update query
+    $query = "DELETE FROM
+                " . $this->table_name . "
+            WHERE
+                year like :year and term like :term and programid = :programid and code like :code";
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare($query);
+    
+    // posted values
+ 
+    // bind new values
+    $stmt->bindParam(':year', $this->year);
+    $stmt->bindParam(':term', $this->term);
+    $stmt->bindParam(':programid', $this->programid);
+    $stmt->bindParam(':code', $this->code);
+     
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function removealls(){
  
     // update query
     $query = "DELETE FROM

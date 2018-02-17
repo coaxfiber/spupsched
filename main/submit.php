@@ -124,7 +124,7 @@ error_reporting(E_ALL);
                 $course->program=$_POST['program'];
                 $course->id=$_POST['id'];
                 $course->update();
-                echo "show_programs_courses.php?q=".$_POST['program'];
+                echo "show_programs_courses.php?q=".$_POST['program']."&g=".$_POST['short'];
                 exit();
             }elseif ($_POST['module']==13) {
                 $faculty = new Faculty($db);
@@ -181,36 +181,141 @@ error_reporting(E_ALL);
                 $sched->term=$_POST['term'];
                 $sched->programid=$_POST['programid'];
 
-                $sched ->removeall();
                 if (isset($_POST['check'])) {
-                $coding = $_POST['check'];
-                       foreach ($coding as $hobys=>$value) {
+                    $coding = $_POST['check'];
+                    $coding2 = $_POST['allcheck'];
+                    foreach ($coding2 as $hobys2=>$value2) {
+                        $x = 0;
+                        foreach ($coding as $hobys=>$value) {
+                            if ($value2==$value) {
+                                $x=1;
+                                break;
+                            }
+                        }
+                        if ($x == 0) {
+                            $sched->code = $value2;
+                            $sched->removeall();
+                        }
+                    }
+
+                    $coding3 = $_POST['check'];
+                       foreach ($coding3 as $hobys3=>$value3) {
                                 $course = new Subjects($db);
-                                $stmt=$course->getcode($value);
+                                $stmt=$course->getcode($value3);
                                 $row = $stmt->fetch();
                                 $sched->code = $row[1];
                                 $sched->title = $row[2];
                                 $sched->units = $row[3];
-                                $sched->create(); 
+                                $stmt = $sched->getcode();
+                                if ($stmt->rowCount() > 0) {
+                                }else
+                                {
+                                 $sched->create(); 
+                                }  
                             }
                             
                     # code...
+                }else
+                {
+                            $sched->removealls();
                 }
+
                 echo "show_scheduling.php?q=".$_POST['stat'];
                 exit();
             }elseif ($_POST['module']==19) {
-                $upd = new Incharge($db);
-                $upd ->username = $_POST['username'];
-                $upd ->email = $_POST['email'];
-                $upd ->name = $_POST['name'];
-                $upd ->position = $_POST['position'];
-                $upd ->idno = $_POST['idno'];
-                $upd ->facebooklink = $_POST['facebooklink'];
-                $upd ->googlelink = $_POST['googlelink'];
-                $upd ->twitterlink = $_POST['twitterlink'];
-                $upd ->id = $_POST['id'];
-                $upd ->updateall();
-                echo "showuserprofile.php?masterid=".$_POST['id'];
+                $sched = new Scheduling($db);
+                if ($_POST['sched']==0) {
+                   $sched->sched = $_POST['sched2'];
+                }else{
+                    $arr= new Options($db);
+                    $stmt = $arr->readstart();
+                    $row = $stmt->fetch();
+                    
+
+                    $x=0;
+                    $y=0;
+
+                    $string = date("M j", strtotime($row[2]));
+                    $month = date("M", strtotime($row[2]));
+                    $x++;
+                    while ($y<6) {
+                        if (date("w", strtotime($row[2].' +'.$x.' day'))==0 || date("w", strtotime($row[2].' +'.$x.' day'))==6) {
+                            if ($month == date("M", strtotime($row[2].' +'.$x.' day'))) {
+                                $string = $string .", ". date("j", strtotime($row[2].' +'.$x.' day'));
+                            }else{
+                                $string = $string .", ". date("M j", strtotime($row[2].' +'.$x.' day'));
+                                $month = date("M", strtotime($row[2].' +'.$x.' day'));
+                            }
+                            $y++;
+                            //echo $x . "<br>";
+                        }
+                        $x++;
+                    }
+                    $first = $string;
+
+                    $x=$x+6;
+                    $y=0;
+                    if (date("M j", strtotime($row[2].' +'.$x.' day'))) {
+                        # code...
+                    }
+                    $string = date("M j", strtotime($row[2].' +'.$x.' day'));
+                    $month = date("M", strtotime($row[2].' +'.$x.' day'));
+                    $x++;
+                    while ($y<6) {
+                        if (date("w", strtotime($row[2].' +'.$x.' day'))==0 || date("w", strtotime($row[2].' +'.$x.' day'))==6) {
+                            if ($month == date("M", strtotime($row[2].' +'.$x.' day'))) {
+                                $string = $string .", ". date("j", strtotime($row[2].' +'.$x.' day'));
+                            }else{
+                                $string = $string .", ". date("M j", strtotime($row[2].' +'.$x.' day'));
+                                $month = date("M", strtotime($row[2].' +'.$x.' day'));
+                            }
+                            $y++;
+                            //echo $x . "<br>";
+                        }
+                        $x++;
+                    }
+                    
+                    $second = $string;
+                    $y=0;
+                    if (date("M j", strtotime($row[2].' +'.$x.' day'))) {
+                        # code...
+                    }
+                    $string = date("M j", strtotime($row[2].' +'.$x.' day'));
+                    $month = date("M", strtotime($row[2].' +'.$x.' day'));
+                    $x++;
+                    while ($y<6) {
+                        if (date("w", strtotime($row[2].' +'.$x.' day'))==0 || date("w", strtotime($row[2].' +'.$x.' day'))==6) {
+                            if ($month == date("M", strtotime($row[2].' +'.$x.' day'))) {
+                                $string = $string .", ". date("j", strtotime($row[2].' +'.$x.' day'));
+                            }else{
+                                $string = $string .", ". date("M j", strtotime($row[2].' +'.$x.' day'));
+                                $month = date("M", strtotime($row[2].' +'.$x.' day'));
+                            }
+                            $y++;
+                            //echo $x . "<br>";
+                        }
+                        $x++;
+                    }
+                    
+                    $third = $string;
+
+                    if ($_POST['sched']==1) {
+                        $sched ->sched = $first;
+                    }
+                    if ($_POST['sched']==2) {
+                        $sched ->sched = $second;
+                    }
+                    if ($_POST['sched']==3) {
+                        $sched ->sched = $third;
+                    }
+                }
+                $sched ->position = $_POST['sched'];
+                $sched ->time = $_POST['time'];
+                $sched ->professor = $_POST['prof'];
+                $sched ->room = $_POST['room'];
+                $sched ->id = $_POST['id'];
+                $sched ->updatesched();
+                echo "show_scheduling.php?q=".$_POST['stat'];
                 exit();
             }elseif ($_POST['module']==20) {
                 $si = new stayinndata($db);

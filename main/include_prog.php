@@ -27,7 +27,7 @@ error_reporting(E_ALL);
 
 
     <div class="card-content table-responsive">
-        <div  >
+        <div style="overflow-y: scroll;height: 400px" >
         <form id="filloffered<?php echo $_GET['q']; ?>" method="POST">
         <table class="table">
             <thead class="text-primary" style="color: #32122e">
@@ -65,9 +65,9 @@ error_reporting(E_ALL);
                                echo '<input type="checkbox" value="'.$code.'" name="check[]" checked>';
                               }else
                                echo '<input type="checkbox" value="'.$code.'"  name="check[]">';
-
                              ?>
                             </label>
+                            <input type="checkbox" value="<?php echo $code; ?>" name="allcheck[]" style="visibility: hidden;" checked="checked" />
                         </div>
                     </td>
                 </tr>
@@ -110,40 +110,5 @@ error_reporting(E_ALL);
                                             e.preventDefault(); // avoid to execute the actual submit of the form.}
                                             
                                         });
-
-                                        function deleteroom(id2,module2,bldg){
-                                          var txt;
-                                          var r = confirm("Are you sure you want to remove this Course?");
-                                          if (r == true) {
-                                                     $.post("submit.php", { id:id2,  module:module2, program:bldg
-                                                                            })
-                                              .done(function( data ) {
-                                               alert(data);
-                                               y = data.replace(/(^\s+|\s+$)/g, "")
-                                               $('#tablesched').html('<center><img src=\'../assets/load.gif\' style=\'width:100px;\'></center>').load(y);
-                                             });
-                                                     
-                                          }
-                                          
-                                        }
-                                        function updateroom(id,code,title,units,remarks,type,mod,program){
-                                          var txt;
-                                          var value1 = document.getElementById(code).value;
-                                          var value2 = document.getElementById(title).value;
-                                          var value3 = document.getElementById(units).value;
-                                          var value4 = document.getElementById(remarks).value;
-                                          var value5 = document.getElementById(type).value;
-                                          //alert(value);
-                                          var r = confirm('Are you sure you want to update the Course?');
-                                          if (r == true) {
-                                                     $.post('submit.php', { id,code:value1,title:value2,units:value3,remarks:value4,type:value5,module:mod,program:program
-                                                                            })
-                                              .done(function( data ) {
-                                               y = data.replace(/(^\s+|\s+$)/g, "")
-                                               $('#rooms').load(y);
-                                             });
-                                                     
-                                          }
-                                      }
                                     </script>
     </div>
