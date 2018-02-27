@@ -124,7 +124,7 @@ error_reporting(E_ALL);
                 $course->program=$_POST['program'];
                 $course->id=$_POST['id'];
                 $course->update();
-                echo "show_programs_courses.php?q=".$_POST['program']."&g=".$_POST['short'];
+                echo "show_programs_courses.php?q=".$_POST['program'];
                 exit();
             }elseif ($_POST['module']==13) {
                 $faculty = new Faculty($db);

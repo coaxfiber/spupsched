@@ -8,8 +8,6 @@ error_reporting(E_ALL);
         $database = new Database();
         $db = $database->getConnection();
         $room= new Subjects($db);
-        
-
 ?>
 
 
@@ -50,7 +48,7 @@ error_reporting(E_ALL);
                     <?php
                       }
                     }
-                    $stmt = $room->read($_GET['q'],$_GET['g']);
+                    $stmt = $room->read($_GET['q']);
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                     extract($row);
                 ?>
@@ -91,7 +89,7 @@ error_reporting(E_ALL);
                             <a href="javascript:void(0);" onclick="deleteroom(<?php echo $id; ?>,11,<?php echo $_GET['q'];?>)"><i class="material-icons">delete</i> Remove</a>
                         </div>
                         <div id="roomupdate<?php echo $id; ?>" style="display: none">
-                            <a href="javascript:void(0);" onclick="updateroom(<?php echo $id; ?>,'inputx<?php echo $id;?>','input2x<?php echo $id;?>','input3x<?php echo $id;?>','input4x<?php echo $id;?>','input5x<?php echo $id;?>',12,<?php echo $_GET['q'];?>,'<?php echo $_GET['g'];?>')" ><i class="material-icons">edit</i>&nbsp;Save&nbsp;</a>&nbsp;|&nbsp;
+                            <a href="javascript:void(0);" onclick="updateroom(<?php echo $id; ?>,'inputx<?php echo $id;?>','input2x<?php echo $id;?>','input3x<?php echo $id;?>','input4x<?php echo $id;?>','input5x<?php echo $id;?>',12,<?php echo $_GET['q'];?>)" ><i class="material-icons">edit</i>&nbsp;Save&nbsp;</a>&nbsp;|&nbsp;
                             <a href="javascript:void(0);" onclick="cancelroom<?php echo $id; ?>()" ><i class="material-icons">cancel</i>&nbsp;Cancel&nbsp;</a> 
                         </div>
                         <script type="text/javascript">
@@ -218,7 +216,7 @@ error_reporting(E_ALL);
                                           }
                                           
                                         }
-                                        function updateroom(id,code,title,units,remarks,type,mod,program,short){
+                                        function updateroom(id,code,title,units,remarks,type,mod,program){
                                           var txt;
                                           var value1 = document.getElementById(code).value;
                                           var value2 = document.getElementById(title).value;
@@ -228,7 +226,7 @@ error_reporting(E_ALL);
                                           //alert(value);
                                           var r = confirm('Are you sure you want to update the Course?');
                                           if (r == true) {
-                                                     $.post('submit.php', { id,code:value1,title:value2,units:value3,remarks:value4,type:value5,module:mod,program:program,short:short
+                                                     $.post('submit.php', { id,code:value1,title:value2,units:value3,remarks:value4,type:value5,module:mod,program:program
                                                                             })
                                               .done(function( data ) {
                                                y = data.replace(/(^\s+|\s+$)/g, "")

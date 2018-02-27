@@ -47,6 +47,14 @@
                             <p>Scheduling</p>
                         </a>
                     </li>
+                    <li  id="side6" >
+                        <a href="javascript:void(0)" onclick="changeclass(6);
+                        document.getElementById('toptitle').innerHTML = 'Sectioning';
+                        $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_dashboard.php');">
+                            <i class="material-icons">dashboard</i>
+                            <p>Sectioning</p>
+                        </a>
+                    </li>
                     <li id="side3" >
                         <a href="javascript:void(0)" onclick="changeclass(3);
                         document.getElementById('toptitle').innerHTML = 'Buildings/Rooms';
@@ -208,6 +216,8 @@
            $("#side4").attr('class', 'active');
         }if (car==5) {
            $("#side5").attr('class', 'active');
+        }if (car==6) {
+           $("#side6").attr('class', 'active');
         }
     }
     function clearside(){
@@ -216,6 +226,7 @@
         $("#side3").attr('class', '');
         $("#side4").attr('class', '');
         $("#side5").attr('class', '');
+        $("#side6").attr('class', '');
     }
 </script>
 <!--   Core JS Files   -->

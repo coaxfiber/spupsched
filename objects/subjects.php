@@ -21,7 +21,7 @@ class Subjects{
     }
  
     // used by select drop-down list
-    function read($var,$var2){
+    function read($var){
        if ($var == 0) {
            $query = "SELECT
                          *
@@ -31,7 +31,7 @@ class Subjects{
             $query = "SELECT DISTINCT
                          gs_subject.id,gs_subject.title,gs_subject.units,gs_subject.remarks,gs_subject.type,gs_subject.code,gs_subject.program
                      FROM
-                    " . $this->table_name ." inner join gs_program on ".$this->table_name.".program = gs_program.id  where (short like '".$var2."' and  type like 'Core Courses') or (".$this->table_name.".program = ".$var." and type != 'Core Courses')";  
+                    " . $this->table_name ." inner join gs_program on ".$this->table_name.".program = gs_program.id  where (".$this->table_name.".program = ".$var.")";  
        }
         //select all data
             
@@ -44,7 +44,7 @@ class Subjects{
 
 
     // used by select drop-down list
-    function readlist($var,$var2){
+    function readlist($var){
        if ($var == 0) {
            $query = "SELECT
                          *
@@ -54,7 +54,7 @@ class Subjects{
             $query = "SELECT DISTINCT
                          gs_subject.id,gs_subject.title,gs_subject.units,gs_subject.remarks,gs_subject.type,gs_subject.code,gs_subject.program
                      FROM
-                    " . $this->table_name ." left join gs_program on ".$this->table_name.".program = gs_program.id  where (gs_subject.program = 0) or (short like '".$var2."' and  type like 'Core Courses') or (".$this->table_name.".program = ".$var." and type != 'Core Courses')";  
+                    " . $this->table_name ." left join gs_program on ".$this->table_name.".program = gs_program.id  where (gs_subject.program = 0) or (".$this->table_name.".program = ".$var.")";  
        }
         //select all data
             

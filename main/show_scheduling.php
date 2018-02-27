@@ -159,7 +159,7 @@
                                                       <th><?php echo $units;  ?></th>
                                                     </tr>
                                                     <tr>
-                                                      <th style="text-align: right">Schedule Rank: &nbsp;&nbsp;&nbsp;</th>
+                                                      <th style="text-align: right">Schedule Order: &nbsp;&nbsp;&nbsp;</th>
                                                       <th>
                                                         <div class="form-group label-floating" style="margin-top: 0">
                                                           <input type="hidden" name="module" value="19">
