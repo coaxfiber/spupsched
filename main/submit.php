@@ -326,6 +326,7 @@ error_reporting(E_ALL);
                 //$sched ->sched 
 
                 $sched ->time = $_POST['time'];
+                $sched ->merge = $_POST['code2'];
                 $sched ->room = $_POST['room'];
                 $sched ->id = $_POST['id'];
                 $sched ->updatesched();

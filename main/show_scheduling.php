@@ -97,7 +97,7 @@
                                   extract($row);
                               ?>
                               <tr  class="hov">
-                                  <td><?php echo $code; ?>
+                                  <td><?php echo $code;if($merge!=''){echo "/".$merge;} ?>
                                   </td>
                                   <td><?php echo $title; ?>
                                   </td>
@@ -150,7 +150,7 @@
                                                   <table style="width: 100%">
                                                     <tr>
                                                       <th style="text-align: right">Code: &nbsp;&nbsp;&nbsp;</th>
-                                                      <th><?php echo $code; ?></th>
+                                                      <th><?php echo $code; if($merge!=''){echo "/".$merge;} ?></th>
                                                     </tr>
                                                     <tr>
                                                       <th style="text-align: right">Course Title: &nbsp;&nbsp;&nbsp;</th>
@@ -167,6 +167,7 @@
                                                           <input type="hidden" name="term" value="<?php echo $term;  ?>">
                                                           <input type="hidden" name="year" value="<?php echo $year;  ?>">
                                                           <input type="hidden" name="module" value="19">
+                                                          <input type="hidden" name="code" value="<?php echo $code; ?>">
                                                           <input type="hidden" name="id" value="<?php echo $id;  ?>">
                                                           <input type="hidden" name="stat" value="<?php echo $_GET['q'] ?>">
                                                         <SELECT id="select" type="text" name="sched" class="form-control" style="margin-top:0;">
@@ -319,10 +320,15 @@
                                                         <table width="100%">
                                                           <tr>
                                                             <td width="50%"><div class="form-group label-floating" style="margin-top: 0;">
-                                                          <input type="text" class="form-control" name="upbldg" value="" placeholder="Course Code">
+                                                          <input type="text" value="<?php echo $merge;  ?>" class="form-control" name="code2" value="" placeholder="Course Code" id="merge">
                                                           </div></td>
                                                           <td>
-                                                            <button>seek</button>
+                                                            <a href="javascript:void(0)"  onclick="merge()">Clear</a>
+                                                            <script type="text/javascript">
+                                                              function merge(){
+                                                                document.getElementById('merge').value = '';
+                                                              }
+                                                            </script>
                                                           </td>
                                                           </tr>
                                                         </table>

@@ -86,6 +86,7 @@ function update(){
     $this->short=htmlspecialchars(strip_tags($this->short));
     $this->program=htmlspecialchars(strip_tags($this->program));
     $this->specialization=htmlspecialchars(strip_tags($this->specialization));
+    $this->short= preg_replace('/\s+/', '', $this->short);
     // bind new values
     $stmt->bindParam(':specialization', $this->specialization);
     $stmt->bindParam(':program', $this->program);
@@ -137,6 +138,7 @@ function create(){
     $this->short=htmlspecialchars(strip_tags($this->short));
     $this->program=htmlspecialchars(strip_tags($this->program));
     $this->specialization=htmlspecialchars(strip_tags($this->specialization));
+    $this->short= preg_replace('/\s+/', '', $this->short);
     // bind new values
     $stmt->bindParam(':program', $this->program);
     $stmt->bindParam(':short', $this->short);

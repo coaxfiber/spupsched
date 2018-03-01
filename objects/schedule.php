@@ -18,6 +18,7 @@ class Scheduling{
     public $programid;
     public $start;
     public $position;
+    public $merge;
  
     public function __construct($db){
         $this->conn = $db;
@@ -92,6 +93,7 @@ function updatesched(){
                 professor = :professor,
                 time = :time,
                 sched = :sched,
+                merge = :merge,
                 room = :room
             WHERE
                 id = :id";
@@ -104,12 +106,14 @@ function updatesched(){
     $this->sched=htmlspecialchars(strip_tags($this->sched));
     $this->room=htmlspecialchars(strip_tags($this->room));
     $this->id=htmlspecialchars(strip_tags($this->id));
+    $this->merge=htmlspecialchars(strip_tags($this->merge));
     // bind new values
     $stmt->bindParam(':professor', $this->professor);
     $stmt->bindParam(':time', $this->time);
     $stmt->bindParam(':sched', $this->sched);
     $stmt->bindParam(':room', $this->room);
     $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':merge', $this->merge);
     // execute the query
     if($stmt->execute()){
         return true;
@@ -176,7 +180,7 @@ function create(){
     // update query
     $query = "INSERT INTO
                 " . $this->table_name . "
-            VALUES(null,:code,:title,:units,'','8:30-12/1:30-5','','',:term,:year,:programid,'',0 )";
+            VALUES(null,:code,:title,:units,'','8:30-12/1:30-5','','',:term,:year,:programid,'',0,'' )";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);
