@@ -126,6 +126,8 @@
                                                        success: function(data)
                                                        {   
                                                           y = data.replace(/(^\s+|\s+$)/g, "");
+                                                          if (y.indexOf("zzz")>=0) {alert('The Professor has a conflicted schedule and will be assigned as TBA');y=y.replace('zzz', '');}
+                                                          
                                                 $( ".modal-backdrop" ).remove();
                                                           $('#tablesched').html('<center><img src=\'../assets/load.gif\' style=\'width:100px;\'></center>').load(y);
                                                        }
@@ -162,6 +164,8 @@
                                                       <th style="text-align: right">Schedule Order: &nbsp;&nbsp;&nbsp;</th>
                                                       <th>
                                                         <div class="form-group label-floating" style="margin-top: 0">
+                                                          <input type="hidden" name="term" value="<?php echo $term;  ?>">
+                                                          <input type="hidden" name="year" value="<?php echo $year;  ?>">
                                                           <input type="hidden" name="module" value="19">
                                                           <input type="hidden" name="id" value="<?php echo $id;  ?>">
                                                           <input type="hidden" name="stat" value="<?php echo $_GET['q'] ?>">

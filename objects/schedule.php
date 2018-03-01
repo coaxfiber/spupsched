@@ -22,14 +22,28 @@ class Scheduling{
     public function __construct($db){
         $this->conn = $db;
     }
- 
+ // used by select drop-down list
+    function check($var,$t,$y,$p,$id){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." WHERE id != ".$id." and term like '".$t."' and year like '".$y."'  and sched like '".$var."' and professor like '".$p."'";  
+
+        $stmt = $this->conn->prepare( $query );
+        // posted valuesF
+
+        $stmt->execute();
+    
+        return $stmt;
+    }
     // used by select drop-down list
     function read(){
         //select all data
             $query = "SELECT
                          *
                      FROM
-                    " . $this->table_name ." WHERE term like :term and year like :year and programid like :programid";  
+                    " . $this->table_name ." WHERE term like :term and year like :year and programid like :programid and position = 0";  
 
         $stmt = $this->conn->prepare( $query );
         // posted valuesF
@@ -50,7 +64,7 @@ class Scheduling{
             $query = "SELECT
                          *
                      FROM
-                    " . $this->table_name ." WHERE term like :term and year like :year and programid like :programid and code like :code";  
+                    " . $this->table_name ." WHERE term like :term and year like :year and programid like :programid and code like :code and position = 0";  
 
         $stmt = $this->conn->prepare( $query );
         // posted valuesF
@@ -76,7 +90,6 @@ function updatesched(){
                 " . $this->table_name . "
             SET 
                 professor = :professor,
-                position = :position,
                 time = :time,
                 sched = :sched,
                 room = :room
@@ -91,14 +104,12 @@ function updatesched(){
     $this->sched=htmlspecialchars(strip_tags($this->sched));
     $this->room=htmlspecialchars(strip_tags($this->room));
     $this->id=htmlspecialchars(strip_tags($this->id));
-    $this->position=htmlspecialchars(strip_tags($this->position));
     // bind new values
     $stmt->bindParam(':professor', $this->professor);
     $stmt->bindParam(':time', $this->time);
     $stmt->bindParam(':sched', $this->sched);
     $stmt->bindParam(':room', $this->room);
     $stmt->bindParam(':id', $this->id);
-    $stmt->bindParam(':position', $this->position);
     // execute the query
     if($stmt->execute()){
         return true;

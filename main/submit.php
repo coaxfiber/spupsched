@@ -224,6 +224,8 @@ error_reporting(E_ALL);
                 exit();
             }elseif ($_POST['module']==19) {
                 $sched = new Scheduling($db);
+
+
                 if ($_POST['sched']==0) {
                    $sched->sched = $_POST['sched2'];
                 }else{
@@ -309,9 +311,21 @@ error_reporting(E_ALL);
                         $sched ->sched = $third;
                     }
                 }
-                $sched ->position = $_POST['sched'];
-                $sched ->time = $_POST['time'];
+
+                $test = 0 ;
                 $sched ->professor = $_POST['prof'];
+                if ($_POST['prof']!='') {
+                $stmt = $sched ->check($sched ->sched,$_POST['term'],$_POST['year'],$_POST['prof'],$_POST['id']);
+                $test = $stmt->rowCount();
+                }
+                
+                if ($test > 0) {
+                   $sched ->sched = "TBA";
+                   echo "zzz";
+                }
+                //$sched ->sched 
+
+                $sched ->time = $_POST['time'];
                 $sched ->room = $_POST['room'];
                 $sched ->id = $_POST['id'];
                 $sched ->updatesched();

@@ -51,8 +51,16 @@
                         <a href="javascript:void(0)" onclick="changeclass(6);
                         document.getElementById('toptitle').innerHTML = 'Sectioning';
                         $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_dashboard.php');">
-                            <i class="material-icons">dashboard</i>
+                            <i class="material-icons">dns</i>
                             <p>Sectioning</p>
+                        </a>
+                    </li>
+                    <li id="side4" >
+                        <a href="javascript:void(0)" onclick="changeclass(4);
+                        document.getElementById('toptitle').innerHTML = 'Program/Course';
+                        $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_programs.php');">
+                            <i class="material-icons">assignment</i>
+                            <p>Program/Course</p>
                         </a>
                     </li>
                     <li id="side3" >
@@ -69,14 +77,6 @@
                         $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_faculty.php');">
                             <i class="material-icons">supervisor_account</i>
                             <p>Faculty</p>
-                        </a>
-                    </li>
-                    <li id="side4" >
-                        <a href="javascript:void(0)" onclick="changeclass(4);
-                        document.getElementById('toptitle').innerHTML = 'Program/Course';
-                        $('#maincontent').html('<center><img src=\'../assets/load.gif\' width=\'100\'></center>').load('show_programs.php');">
-                            <i class="material-icons">assignment</i>
-                            <p>Program/Course</p>
                         </a>
                     </li>
                     <li id="side5" >
