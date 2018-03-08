@@ -127,8 +127,30 @@
 
                                                 <td class="text-a" >
                                                     <div class="bldgaction">
-                                                        <a href="javascript:void(0);" onclick="upshow<?php echo $id; ?>()" ><i class="material-icons">edit</i> Update&nbsp;</a> | 
-                                                        <a href="javascript:void(0);" onclick="deletebldg(<?php echo $id; ?>,14)"><i class="material-icons">delete</i> Remove</a>
+                                                        <a href="javascript:void(0);" data-toggle="modal"  data-target="#date<?php echo $id; ?>"  data-backdrop="static" data-keyboard="false"><i class="material-icons">print</i></a> | 
+                                                        <a href="javascript:void(0);" onclick="upshow<?php echo $id; ?>()" ><i class="material-icons">edit</i>&nbsp;</a> | 
+                                                        <a href="javascript:void(0);" onclick="deletebldg(<?php echo $id; ?>,14)"><i class="material-icons">delete</i></a>
+
+                                                        <div id="date<?php echo $id; ?>" class="modal fade" role="dialog" style="text-align: left;">
+                                                          <div class="modal-dialog">
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content" style="padding: 20px 20px 0 20px">
+                                                             <form method="POST" action="faculty_print.php"  target="_blank">
+                                                              <div class="modal-body" style="padding-top:0">
+                                                               <h3>Generate Letter to:</h3>
+                                                                <input class="form-control" style="margin-top:0;" readonly="readonly" type="text" name="name" value="<?php echo $ext; ?> <?php echo $fname; ?> <?php echo $mname; ?> <?php echo $lname; ?>">
+                                                                <input type="hidden" name="fname" value="<?php echo $fname; ?>">
+                                                                <input type="hidden" name="ext" value="<?php echo $ext; ?>">
+                                                                <input type="date" name="date" class="form-control" value="<?php echo date('Y-m-d'); ?>" style="width: 50%">
+                                                                <hr>
+                                                               <button type="button" class="btn btn-danger"  data-dismiss="modal">Cancel</button>
+                                                               <button type="submit" class="btn btn-success"  >Proceed</button>
+
+                                                              </div>  
+                                                              </form>    
+                                                            </div>
+                                                          </div>
+                                                        </div>
                                                     </div>
                                                     <div id="bldgupdate<?php echo $id; ?>" style="display: none">
                                                         <a href="javascript:void(0);" onclick="updatek(<?php echo $id; ?>,'input1x<?php echo $id;?>','input2x<?php echo $id;?>','input3x<?php echo $id;?>','input4x<?php echo $id;?>','input5x<?php echo $id;?>','input6x<?php echo $id;?>','input7x<?php echo $id;?>',15)" ><i class="material-icons">edit</i>&nbsp;Save&nbsp;</a>&nbsp;|&nbsp;
@@ -266,7 +288,7 @@
 
                         function deletebldg(id2,module2){
                           var txt;
-                          var r = confirm("Are you sure you want to remove this Building? Note: all rooms in this building will be removed.");
+                          var r = confirm("Are you sure you want to remove this Faculty Member? ");
                           if (r == true) {
                                      $.post("submit.php", { id:id2,  module:module2
                                                             })
@@ -309,7 +331,7 @@
                               var value6 = document.getElementById(val6).value;
                               var value7 = document.getElementById(val7).value;
                               //alert(value);
-                              var r = confirm('Are you sure you want to update the building?');
+                              var r = confirm('Are you sure you want to update the The faculty member?');
                               if (r == true) {
                                          $.post('submit.php', { id:id, idno:value1,ext:value2,fname:value3,mname:value4,lname:value5,status:value6, progname:value7,module:module2
                                                                 })

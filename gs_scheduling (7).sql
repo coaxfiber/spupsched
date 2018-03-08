@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2018 at 05:30 PM
+-- Generation Time: Mar 08, 2018 at 10:57 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -70,7 +70,7 @@ CREATE TABLE `gs_faculty` (
 --
 
 INSERT INTO `gs_faculty` (`id`, `idno`, `ext`, `fname`, `mname`, `lname`, `status`, `progname`) VALUES
-(1, '22', 'MR.', '2', '22', '22', 'Inactive', 'MIT');
+(1, '0600879', 'MR.', 'Elton John', '', 'Bagne', 'Inactive', 'MIT-IM');
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ INSERT INTO `gs_option` (`id`, `gsoption`, `value`) VALUES
 (1, 'dean', 'INICIA C. BANSIG, Ph.D.'),
 (2, 'vp', 'AGRIPINA MARIBBAY, Ph.D.'),
 (3, 'active_year', '2017 - 2018'),
-(4, 'active_term', 'Third Semester'),
+(4, 'active_term', 'Second Trimester'),
 (5, 'active_start', '2018-01-10');
 
 -- --------------------------------------------------------
@@ -153,18 +153,6 @@ CREATE TABLE `gs_scheduling` (
   `merge` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `gs_scheduling`
---
-
-INSERT INTO `gs_scheduling` (`id`, `code`, `title`, `units`, `sched`, `time`, `room`, `professor`, `term`, `year`, `programid`, `start`, `position`, `merge`) VALUES
-(83, 'MIT 301', 'Advance Operating Systems and Networking', 3, '', '', '', '', 'Third Semester', '2017 - 2018', 22, '0000-00-00', 0, ''),
-(87, 'INS 201', 'Pauline Ethics', 3, '', '8:30-12/1:30-5', '', '', 'Third Semester', '2017 - 2018', 22, '0000-00-00', 0, ''),
-(88, 'MIT 302', 'Advance Database System', 3, '', '8:30-12/1:30-5', '', '', 'Third Semester', '2017 - 2018', 22, '0000-00-00', 0, ''),
-(89, 'MIT 303', 'Advanced Systems Design and Implementation', 3, '', '8:30-12/1:30-5', '', '', 'Third Semester', '2017 - 2018', 22, '0000-00-00', 0, ''),
-(90, 'MIT 304', 'Global Information Technology &amp; Project Management', 3, '', '8:30-12/1:30-5', '', '', 'Third Semester', '2017 - 2018', 22, '0000-00-00', 0, ''),
-(94, 'MIT 304', 'Global Information Technology &amp; Project Management', 3, '', '8:30-12/1:30-5', '', '', 'Third Semester', '2017 - 2018', 21, '0000-00-00', 0, '');
-
 -- --------------------------------------------------------
 
 --
@@ -188,10 +176,23 @@ CREATE TABLE `gs_subject` (
 INSERT INTO `gs_subject` (`id`, `code`, `title`, `units`, `remarks`, `program`, `type`) VALUES
 (1, 'INS 201', 'Pauline Ethics', 3, 'for Non-Paulinian Graduate', 0, 'Institutional Courses'),
 (7, 'MIT 303', 'Advanced Systems Design and Implementation', 3, '', 21, 'Core Courses'),
-(8, 'MIT 304', 'Global Information Technology &amp; Project Management', 3, '', 21, 'Core Courses'),
+(8, 'MIT 304', 'Global Information Technology &amp; Project Management (Section 1)', 3, '', 21, 'Core Courses'),
 (11, 'MITCP 01', 'Capstone Project 1', 6, '', 21, 'Independent Projects'),
 (15, '2234', '2', 2, '2', 22, 'Core Courses'),
-(17, '3', '3', 3, '3', 27, 'Core Courses');
+(17, '3', '3', 3, '3', 27, 'Core Courses'),
+(18, '2', '2', 2, '2', 21, 'Core Courses'),
+(19, '23', '2', 2, '2', 21, 'Core Courses'),
+(20, '4', '2', 2, '2', 21, 'Independent Projects'),
+(23, '2123', '2', 2, '22', 21, 'Major Courses'),
+(24, '22123', '1', 1, '1', 21, 'Core Courses'),
+(25, 'q', 'q', 1, 'q', 21, 'Core Courses'),
+(26, 'e', '111', 12, '', 21, 'Major Courses'),
+(28, 'u', 'u', 1, 'u', 21, 'Core Courses'),
+(29, 'o', 's', 1, 's', 21, 'Major Courses'),
+(30, 'dcv', 'w', 1, 'w', 21, 'Core Courses'),
+(31, '7', 'w', 1, 'w', 21, 'Cognate Courses'),
+(32, 'qwe', 'qwe', 3, '11', 22, 'Core Courses'),
+(33, '12322222', '123', 3, '123', 22, 'Core Courses');
 
 --
 -- Indexes for dumped tables
@@ -273,7 +274,7 @@ ALTER TABLE `gs_option`
 -- AUTO_INCREMENT for table `gs_program`
 --
 ALTER TABLE `gs_program`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `gs_rooms`
 --
@@ -283,12 +284,12 @@ ALTER TABLE `gs_rooms`
 -- AUTO_INCREMENT for table `gs_scheduling`
 --
 ALTER TABLE `gs_scheduling`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `gs_subject`
 --
 ALTER TABLE `gs_subject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

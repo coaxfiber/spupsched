@@ -50,7 +50,7 @@
                         </td>
                         <td>
                             <div style="text-align: right;float: right;margin-top: 17px">
-                              <a href="javascript:void(0);" onclick="pdfprint()"  data-toggle="modal" data-target="#of<?php echo $row2[0]; ?>"><i class="material-icons">print</i>&nbsp;Offered Courses&nbsp;</a>
+                              <a href="javascript:void(0);" data-toggle="modal" data-target="#of<?php echo $row2[0]; ?>"><i class="material-icons">print</i>&nbsp;Offered Courses&nbsp;</a>
 
                             <!-- Modal -->
                             <div id="of<?php echo $row2[0]; ?>" class="modal fade" role="dialog">
@@ -366,14 +366,10 @@
     $('.modal-trigger').leanModal();
   });
           function pdfprint(){
-            if (document.getElementById('print1').value!='none' && document.getElementById('print1').value!='0') {
-              var url = "curriculum.php?q="+document.getElementById('print1').value+"&g="+document.getElementById('print2').value;
+              var url = "course_offerings.php?q="+document.getElementById('select').value;
                   var win = window.open(url);
                   win.focus();
-            }
-            else{
-              alert('No selected Program!')
-            }
+           
           }
          
       </script>

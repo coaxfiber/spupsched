@@ -63,9 +63,9 @@ session_start();
                             <?php 
                                echo '<option value="'.$term.'">'.$term."</option>";
                             ?>
-                            <option value="Third Semester">Third Semester</option>
-                            <option value="Second Semester">Second Semester</option>
-                            <option value="First Semester">First Semester</option>
+                            <option value="Third Trimester">Third Trimester</option>
+                            <option value="Second Trimester">Second Trimester</option>
+                            <option value="First Trimester">First Trimester</option>
                             <option value="Transition Term">Transition Term</option>
                             <option value="Summer">Summer</option>
                         </select>

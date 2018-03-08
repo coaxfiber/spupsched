@@ -29,7 +29,7 @@ class Scheduling{
             $query = "SELECT
                          *
                      FROM
-                    " . $this->table_name ." WHERE id != ".$id." and term like '".$t."' and year like '".$y."'  and sched like '".$var."' and professor like '".$p."'";  
+                    " . $this->table_name ." WHERE id != ".$id." and term like '".$t."' and year like '".$y."'  and sched like '".$var."' and professor like '".$p."'  Order by code ASC";  
 
         $stmt = $this->conn->prepare( $query );
         // posted valuesF
@@ -44,7 +44,7 @@ class Scheduling{
             $query = "SELECT
                          *
                      FROM
-                    " . $this->table_name ." WHERE term like :term and year like :year and programid like :programid and position = 0";  
+                    " . $this->table_name ." WHERE term like :term and year like :year and programid like :programid and position = 0   Order by code ASC";  
 
         $stmt = $this->conn->prepare( $query );
         // posted valuesF
@@ -55,6 +55,19 @@ class Scheduling{
         $stmt->bindParam(':term', $this->term);
         $stmt->bindParam(':year', $this->year);
         $stmt->bindParam(':programid', $this->programid);
+
+        $stmt->execute();
+    
+        return $stmt;
+    }
+     function readfac($sy,$t,$name){
+        //select all data
+            $query = "SELECT
+                         *
+                     FROM
+                    " . $this->table_name ." WHERE term like '".$t."' and year like '".$sy."' and professor like '".$name."'   Order by code ASC";  
+
+        $stmt = $this->conn->prepare( $query );
 
         $stmt->execute();
     
@@ -180,7 +193,7 @@ function create(){
     // update query
     $query = "INSERT INTO
                 " . $this->table_name . "
-            VALUES(null,:code,:title,:units,'','8:30-12/1:30-5','','',:term,:year,:programid,'',0,'' )";
+            VALUES(null,:code,:title,:units,'','8:30-12 / 1:30-5','','',:term,:year,:programid,'',0,'' )";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);

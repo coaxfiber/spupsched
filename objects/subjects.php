@@ -31,7 +31,7 @@ class Subjects{
             $query = "SELECT DISTINCT
                          gs_subject.id,gs_subject.title,gs_subject.units,gs_subject.remarks,gs_subject.type,gs_subject.code,gs_subject.program
                      FROM
-                    " . $this->table_name ." inner join gs_program on ".$this->table_name.".program = gs_program.id  where (".$this->table_name.".program = ".$var.")";  
+                    " . $this->table_name ." inner join gs_program on ".$this->table_name.".program = gs_program.id  where (".$this->table_name.".program = ".$var.") Order by gs_subject.code ASC";  
        }
         //select all data
             
@@ -54,7 +54,7 @@ class Subjects{
             $query = "SELECT DISTINCT
                          gs_subject.id,gs_subject.title,gs_subject.units,gs_subject.remarks,gs_subject.type,gs_subject.code,gs_subject.program
                      FROM
-                    " . $this->table_name ." left join gs_program on ".$this->table_name.".program = gs_program.id  where (gs_subject.program = 0) or (".$this->table_name.".program = ".$var.")";  
+                    " . $this->table_name ." left join gs_program on ".$this->table_name.".program = gs_program.id  where (gs_subject.program = 0) or (".$this->table_name.".program = ".$var.")  Order by gs_subject.code ASC";  
        }
         //select all data
             
